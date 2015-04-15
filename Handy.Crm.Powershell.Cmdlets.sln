@@ -16,6 +16,11 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Handy.Crm.2013.Powershell.C
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Handy.Crm.2015.Powershell.Cmdlets", "Handy.Crm.2015.Powershell.Cmdlets\Handy.Crm.2015.Powershell.Cmdlets.csproj", "{6D3067EE-8566-4B54-BBEA-05ADE38A110F}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SolutionItems", "SolutionItems", "{DA6CC590-E30C-4DC8-8052-C5A7D89B4E34}"
+	ProjectSection(SolutionItems) = preProject
+		README.md = README.md
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
