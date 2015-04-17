@@ -35,7 +35,7 @@ namespace Handy.Crm.Powershell.Cmdlets
       };
 
       WriteVerbose(string.Format("Start importing solution from {0}", Path));
-      OrgService.Execute(impSolutionRequest);
+      organizationService.Execute(impSolutionRequest);
       WriteVerbose("Finished importing solution");
 
       if (PassThru)

@@ -14,7 +14,7 @@ namespace Handy.Crm.Powershell.Cmdlets
 		{
 			base.ProcessRecord();
 
-			OrgService.Execute(new PublishAllXmlRequest());
+			organizationService.Execute(new PublishAllXmlRequest());
 		}
 	}
 }

@@ -10,7 +10,7 @@ namespace Handy.Crm.Powershell.Cmdlets
 		{
 			base.ProcessRecord();
 
-			var whoAmI = (WhoAmIResponse)OrgService.Execute(
+			var whoAmI = (WhoAmIResponse)organizationService.Execute(
 				new WhoAmIRequest());
 
 			WriteObject(whoAmI);

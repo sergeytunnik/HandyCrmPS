@@ -34,7 +34,7 @@ namespace Handy.Crm.Powershell.Cmdlets
 			EntityReferenceCollection entityReferenceCollection = new EntityReferenceCollection();
 			entityReferenceCollection.AddRange(RelatedEntity);
 
-			OrgService.Associate(EntityName, Id, new Relationship(Relationship), entityReferenceCollection);
+			organizationService.Associate(EntityName, Id, new Relationship(Relationship), entityReferenceCollection);
 		}
 	}
 }

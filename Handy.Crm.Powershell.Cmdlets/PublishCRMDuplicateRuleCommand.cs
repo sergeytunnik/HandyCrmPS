@@ -22,7 +22,7 @@ namespace Handy.Crm.Powershell.Cmdlets
 			};
 
 			WriteVerbose("Executing PublishDuplicateRuleRequest");
-			PublishDuplicateRuleResponse response = (PublishDuplicateRuleResponse)OrgService.Execute(publishDuplicateRuleRequest);
+			PublishDuplicateRuleResponse response = (PublishDuplicateRuleResponse)organizationService.Execute(publishDuplicateRuleRequest);
 
 			WriteObject(response);
 		}

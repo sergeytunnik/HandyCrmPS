@@ -26,7 +26,7 @@ namespace Handy.Crm.Powershell.Cmdlets
 		protected override void EndProcessing()
 		{
 			WriteVerbose("Executing ExecuteMultipleRequest");
-			ExecuteMultipleResponse executeMultipleResponse = (ExecuteMultipleResponse)OrgService.Execute(_executeMultipleRequest);
+			ExecuteMultipleResponse executeMultipleResponse = (ExecuteMultipleResponse)organizationService.Execute(_executeMultipleRequest);
 
 			ProcessResponse(executeMultipleResponse);
 

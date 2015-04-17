@@ -34,7 +34,7 @@ namespace Handy.Crm.Powershell.Cmdlets
 
 			ColumnSet columnSet = AllColumns.IsPresent ? new ColumnSet((bool)AllColumns) : new ColumnSet(Columns);
 
-			Entity entity = OrgService.Retrieve(EntityName, Id, columnSet);
+			Entity entity = organizationService.Retrieve(EntityName, Id, columnSet);
 
 			WriteObject(entity);
 		}

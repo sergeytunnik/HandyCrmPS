@@ -54,7 +54,7 @@ namespace Handy.Crm.Powershell.Cmdlets
 			};
 
 			WriteVerbose("Starting solution exporting");
-			ExportSolutionResponse exportSolutionResponse = (ExportSolutionResponse)OrgService.Execute(exportSolutionRequest);
+			ExportSolutionResponse exportSolutionResponse = (ExportSolutionResponse)organizationService.Execute(exportSolutionRequest);
 
 			var solutionXml = exportSolutionResponse.ExportSolutionFile;
 

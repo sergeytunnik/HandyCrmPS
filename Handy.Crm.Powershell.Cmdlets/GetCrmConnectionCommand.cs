@@ -1,5 +1,6 @@
 ﻿using System.Management.Automation;
 using Microsoft.Xrm.Client;
+using System;
 
 namespace Handy.Crm.Powershell.Cmdlets
 {
@@ -16,6 +17,7 @@ namespace Handy.Crm.Powershell.Cmdlets
 			base.BeginProcessing();
 
 			CrmConnection crmConnection = CrmConnection.Parse(ConnectionString);
+			crmConnection.ProxyTypesEnabled = false;
 			// Defaul is PerName
 			//crmConnection.ServiceConfigurationInstanceMode = ServiceConfigurationInstanceMode.PerName;
 

@@ -40,7 +40,7 @@
     <DelaySign>false</DelaySign>
   </PropertyGroup>
   <PropertyGroup>
-    <AssemblyOriginatorKeyFile>..\..\Sergey.Tunnik.snk</AssemblyOriginatorKeyFile>
+    <AssemblyOriginatorKeyFile>..\..\..\..\PowerShell-Modules\Sergey.Tunnik.snk</AssemblyOriginatorKeyFile>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Microsoft.Crm.Sdk.Proxy, Version=5.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
@@ -106,7 +106,7 @@
     <Compile Include="UpdateCrmEntityCommand.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="..\..\Sergey.Tunnik.snk">
+    <None Include="..\..\..\..\PowerShell-Modules\Sergey.Tunnik.snk">
       <Link>Sergey.Tunnik.snk</Link>
     </None>
     <None Include="Handy.Crm.Powershell.Cmdlets.psd1">

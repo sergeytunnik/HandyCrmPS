@@ -35,7 +35,7 @@ namespace Handy.Crm.Powershell.Cmdlets
 				orgRequest.Parameters.Add(new KeyValuePair<string, object>(key, Parameters[key].UnwrapPSObject()));
 			}
 
-			OrganizationResponse orgResponse = (OrganizationResponse)OrgService.Execute(orgRequest);
+			OrganizationResponse orgResponse = (OrganizationResponse)organizationService.Execute(orgRequest);
 
 			WriteObject(orgResponse);
 		}

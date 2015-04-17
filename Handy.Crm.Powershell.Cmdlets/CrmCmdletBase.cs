@@ -6,7 +6,7 @@ namespace Handy.Crm.Powershell.Cmdlets
 {
   public class CrmCmdletBase : PSCmdlet
   {
-    protected OrganizationService OrgService { get; set; }
+    protected OrganizationService organizationService { get; set; }
 
     [Parameter(
       Mandatory = true)]
@@ -18,13 +18,13 @@ namespace Handy.Crm.Powershell.Cmdlets
       base.BeginProcessing();
 
       WriteVerbose("Creating OrganizationService");
-      OrgService = new OrganizationService(Connection);
+			organizationService = new OrganizationService(Connection);
     }
 
     protected override void EndProcessing()
     {
       WriteVerbose("Disposing OrganizationService");
-      OrgService.Dispose();
+      organizationService.Dispose();
 
 			base.EndProcessing();
     }

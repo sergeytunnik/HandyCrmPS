@@ -19,7 +19,7 @@ namespace Handy.Crm.Powershell.Cmdlets
     {
       base.ProcessRecord();
 
-      EntityCollection e = OrgService.RetrieveMultiple(new FetchExpression(FetchXML));
+      EntityCollection e = organizationService.RetrieveMultiple(new FetchExpression(FetchXML));
       List<Entity> list = e.Entities.ToList<Entity>();
 
       WriteObject(list);
