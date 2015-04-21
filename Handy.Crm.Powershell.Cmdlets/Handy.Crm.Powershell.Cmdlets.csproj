@@ -109,6 +109,9 @@
     <None Include="..\..\..\..\PowerShell-Modules\Sergey.Tunnik.snk">
       <Link>Sergey.Tunnik.snk</Link>
     </None>
+    <None Include="Install-Module.ps1">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Include="Handy.Crm.Powershell.Cmdlets.psd1">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
