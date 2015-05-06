@@ -31,30 +31,27 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <BuildPackage>true</BuildPackage>
+    <BuildPackage>false</BuildPackage>
   </PropertyGroup>
   <PropertyGroup>
     <SignAssembly>true</SignAssembly>
   </PropertyGroup>
   <PropertyGroup>
-    <DelaySign>false</DelaySign>
+    <DelaySign>true</DelaySign>
   </PropertyGroup>
   <PropertyGroup>
-    <AssemblyOriginatorKeyFile>..\..\..\..\PowerShell-Modules\Sergey.Tunnik.snk</AssemblyOriginatorKeyFile>
+    <AssemblyOriginatorKeyFile>HandyToolsPub.snk</AssemblyOriginatorKeyFile>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Microsoft.Crm.Sdk.Proxy, Version=5.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\Install\Microsoft\Microsoft Dynamics CRM 2011 Software Development Kit (SDK)\CRMSDK2011\SDK\Bin\Microsoft.Crm.Sdk.Proxy.dll</HintPath>
+    <Reference Include="microsoft.crm.sdk.proxy">
+      <HintPath>..\packages\Microsoft.Crm.Sdk.Proxy.2011.5.0.18\lib\net40\microsoft.crm.sdk.proxy.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
-    <Reference Include="Microsoft.Xrm.Client, Version=5.0.9689.2166, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\Install\Microsoft\Microsoft Dynamics CRM 2011 Software Development Kit (SDK)\CRMSDK2011\SDK\Bin\Microsoft.Xrm.Client.dll</HintPath>
+    <Reference Include="microsoft.xrm.client">
+      <HintPath>..\packages\Microsoft.Xrm.Client.2011.5.0.18\lib\net40\microsoft.xrm.client.dll</HintPath>
     </Reference>
-    <Reference Include="Microsoft.Xrm.Sdk, Version=5.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\Install\Microsoft\Microsoft Dynamics CRM 2011 Software Development Kit (SDK)\CRMSDK2011\SDK\Bin\Microsoft.Xrm.Sdk.dll</HintPath>
+    <Reference Include="microsoft.xrm.sdk">
+      <HintPath>..\packages\Microsoft.Xrm.Sdk.2011.5.0.18\lib\net40\microsoft.xrm.sdk.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -106,9 +103,7 @@
     <Compile Include="UpdateCrmEntityCommand.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="..\..\..\..\PowerShell-Modules\Sergey.Tunnik.snk">
-      <Link>Sergey.Tunnik.snk</Link>
-    </None>
+    <None Include="HandyToolsPub.snk" />
     <None Include="Install-Module.ps1">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
@@ -126,6 +121,9 @@
     </PropertyGroup>
     <Error Condition="!Exists('$(SolutionDir)\.nuget\NuGet.targets')" Text="$([System.String]::Format('$(ErrorText)', '$(SolutionDir)\.nuget\NuGet.targets'))" />
   </Target>
+  <PropertyGroup>
+    <PostBuildEvent>IF $(ConfigurationName)==Release "C:\Program Files (x86)\Microsoft SDKs\Windows\v8.1A\bin\NETFX 4.5.1 Tools\sn.exe" -q /R $(TargetPath) $(SolutionDir)..\HandyTools.snk</PostBuildEvent>
+  </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

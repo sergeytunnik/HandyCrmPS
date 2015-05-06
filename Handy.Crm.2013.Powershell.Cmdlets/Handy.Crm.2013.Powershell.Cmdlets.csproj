@@ -32,13 +32,13 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup>
-    <SignAssembly>false</SignAssembly>
+    <SignAssembly>true</SignAssembly>
   </PropertyGroup>
   <PropertyGroup>
-    <AssemblyOriginatorKeyFile>..\..\Sergey.Tunnik.snk</AssemblyOriginatorKeyFile>
+    <AssemblyOriginatorKeyFile>HandyToolsPub.snk</AssemblyOriginatorKeyFile>
   </PropertyGroup>
   <PropertyGroup>
-    <DelaySign>false</DelaySign>
+    <DelaySign>true</DelaySign>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Microsoft.Crm.Sdk.Proxy, Version=6.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
@@ -154,6 +154,7 @@
     <None Include="Handy.Crm.2013.Powershell.Cmdlets.psd1">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Include="HandyToolsPub.snk" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup />
@@ -165,6 +166,9 @@
     </PropertyGroup>
     <Error Condition="!Exists('$(SolutionDir)\.nuget\NuGet.targets')" Text="$([System.String]::Format('$(ErrorText)', '$(SolutionDir)\.nuget\NuGet.targets'))" />
   </Target>
+  <PropertyGroup>
+    <PostBuildEvent>IF $(ConfigurationName)==Release "C:\Program Files (x86)\Microsoft SDKs\Windows\v8.1A\bin\NETFX 4.5.1 Tools\sn.exe" -q /R $(TargetPath) $(SolutionDir)..\HandyTools.snk</PostBuildEvent>
+  </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

@@ -3,7 +3,7 @@ Handy.Crm.Powershell.Cmdlets - is a set of basic cmdlets for PowerShell. It help
 
 #### Installation
 1. Build
-2. Rune Deploy-Module
+2. Run Install-Module
 3. Import-Module
 4. Profit
 

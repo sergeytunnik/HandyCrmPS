@@ -35,10 +35,13 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup>
-    <SignAssembly>false</SignAssembly>
+    <SignAssembly>true</SignAssembly>
   </PropertyGroup>
   <PropertyGroup>
-    <AssemblyOriginatorKeyFile>..\..\Sergey.Tunnik.snk</AssemblyOriginatorKeyFile>
+    <AssemblyOriginatorKeyFile>HandyToolsPub.snk</AssemblyOriginatorKeyFile>
+  </PropertyGroup>
+  <PropertyGroup>
+    <DelaySign>true</DelaySign>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="AntiXSSLibrary, Version=4.2.0.0, Culture=neutral, PublicKeyToken=d127efab8a9c114f, processorArchitecture=MSIL">
@@ -174,6 +177,7 @@
     <None Include="Handy.Crm.2015.Powershell.Cmdlets.psd1">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Include="HandyToolsPub.snk" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup />
@@ -185,6 +189,9 @@
     </PropertyGroup>
     <Error Condition="!Exists('$(SolutionDir)\.nuget\NuGet.targets')" Text="$([System.String]::Format('$(ErrorText)', '$(SolutionDir)\.nuget\NuGet.targets'))" />
   </Target>
+  <PropertyGroup>
+    <PostBuildEvent>IF $(ConfigurationName)==Release "C:\Program Files (x86)\Microsoft SDKs\Windows\v8.1A\bin\NETFX 4.5.1 Tools\sn.exe" -q /R $(TargetPath) $(SolutionDir)..\HandyTools.snk</PostBuildEvent>
+  </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">
