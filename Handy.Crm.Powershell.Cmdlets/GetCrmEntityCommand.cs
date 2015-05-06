@@ -4,25 +4,39 @@ using System.Management.Automation;
 using Microsoft.Xrm.Sdk;
 using Microsoft.Xrm.Sdk.Query;
 
+
 namespace Handy.Crm.Powershell.Cmdlets
 {
-  [Cmdlet(VerbsCommon.Get, "CRMEntity")]
-  public class GetCrmEntityCommand : CrmCmdletBase
-  {
-    [Parameter(
-      Mandatory = true,
-      ValueFromPipeline = true)]
-    [ValidateNotNullOrEmpty]
-    public string FetchXML { get; set; }
+	[Cmdlet(VerbsCommon.Get, "CRMEntity")]
+	public class GetCrmEntityCommand : CrmCmdletBase
+	{
+		[Parameter(
+			Mandatory = true,
+			ValueFromPipeline = true)]
+		[ValidateNotNullOrEmpty]
+		public string FetchXML { get; set; }
 
-    protected override void ProcessRecord()
-    {
-      base.ProcessRecord();
+		[Parameter(
+			Mandatory = false)]
+		public SwitchParameter RetrieveAll { get; set; }
 
-      EntityCollection e = organizationService.RetrieveMultiple(new FetchExpression(FetchXML));
-      List<Entity> list = e.Entities.ToList<Entity>();
+		protected override void ProcessRecord()
+		{
+			base.ProcessRecord();
 
-      WriteObject(list);
-    }
-  }
+			List<Entity> result = new List<Entity>();
+
+			if (RetrieveAll)
+			{
+				result = organizationService.RetrieveMultipleAll(new FetchExpression(FetchXML));
+			}
+			else
+			{
+				EntityCollection e = organizationService.RetrieveMultiple(new FetchExpression(FetchXML));
+				result = e.Entities.ToList<Entity>();
+			}
+
+			WriteObject(result);
+		}
+	}
 }

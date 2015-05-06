@@ -1,11 +1,23 @@
 ﻿using Microsoft.Xrm.Sdk;
 using Microsoft.Xrm.Sdk.Messages;
+using System.Management.Automation;
 
 namespace Handy.Crm.Powershell.Cmdlets
 {
 	public class CrmExecuteMultipleCmdletBase : CrmCmdletBase
 	{
 		protected ExecuteMultipleRequest _executeMultipleRequest;
+
+		// More about what is inside of reponses collection depending on settings at
+		// https://msdn.microsoft.com/en-us/library/jj863631%28v=crm.5%29.aspx
+
+		[Parameter(
+			Mandatory = false)]
+		public SwitchParameter ContinueOnError { get; set; }
+
+		[Parameter(
+			Mandatory = false)]
+		public SwitchParameter ReturnResponses { get; set; }
 
 		protected override void BeginProcessing()
 		{
@@ -16,8 +28,8 @@ namespace Handy.Crm.Powershell.Cmdlets
 			{
 				Settings = new ExecuteMultipleSettings()
 				{
-					ContinueOnError = false,
-					ReturnResponses = true
+					ContinueOnError = ContinueOnError,
+					ReturnResponses = ReturnResponses
 				},
 				Requests = new OrganizationRequestCollection()
 			};

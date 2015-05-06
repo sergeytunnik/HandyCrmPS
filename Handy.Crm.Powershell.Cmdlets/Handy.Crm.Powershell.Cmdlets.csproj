@@ -43,15 +43,18 @@
     <AssemblyOriginatorKeyFile>HandyToolsPub.snk</AssemblyOriginatorKeyFile>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="microsoft.crm.sdk.proxy">
+    <Reference Include="microsoft.crm.sdk.proxy, Version=5.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.Crm.Sdk.Proxy.2011.5.0.18\lib\net40\microsoft.crm.sdk.proxy.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
-    <Reference Include="microsoft.xrm.client">
+    <Reference Include="microsoft.xrm.client, Version=5.0.9689.2166, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.Xrm.Client.2011.5.0.18\lib\net40\microsoft.xrm.client.dll</HintPath>
+      <Private>True</Private>
     </Reference>
-    <Reference Include="microsoft.xrm.sdk">
+    <Reference Include="microsoft.xrm.sdk, Version=5.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.Xrm.Sdk.2011.5.0.18\lib\net40\microsoft.xrm.sdk.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -82,6 +85,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AddCrmAssociationCommand.cs" />
+    <Compile Include="FetchExpressionHelpers.cs" />
     <Compile Include="InvokeCrmOrganizationRequestCommand.cs" />
     <Compile Include="NewCrmEntityCommand.cs" />
     <Compile Include="CrmCmdletBase.cs" />
@@ -93,6 +97,7 @@
     <Compile Include="GetCrmEntityByIdCommand.cs" />
     <Compile Include="ImportCrmSolutionCommand.cs" />
     <Compile Include="InvokeCrmWhoAmICommand.cs" />
+    <Compile Include="OrganizationServiceHelpers.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="PublishCrmAllXmlCommand.cs" />
     <Compile Include="PublishCRMDuplicateRuleCommand.cs" />
