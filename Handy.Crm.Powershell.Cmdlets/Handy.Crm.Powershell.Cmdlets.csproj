@@ -34,7 +34,7 @@
     <BuildPackage>false</BuildPackage>
   </PropertyGroup>
   <PropertyGroup>
-    <SignAssembly>true</SignAssembly>
+    <SignAssembly>false</SignAssembly>
   </PropertyGroup>
   <PropertyGroup>
     <DelaySign>true</DelaySign>
@@ -43,45 +43,30 @@
     <AssemblyOriginatorKeyFile>HandyToolsPub.snk</AssemblyOriginatorKeyFile>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="microsoft.crm.sdk.proxy, Version=5.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.Crm.Sdk.Proxy.2011.5.0.18\lib\net40\microsoft.crm.sdk.proxy.dll</HintPath>
+    <Reference Include="Microsoft.Crm.Sdk.Proxy, Version=5.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Microsoft.CrmSdk.CoreAssemblies.5.0.18\lib\net40\Microsoft.Crm.Sdk.Proxy.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Microsoft.CSharp" />
-    <Reference Include="microsoft.xrm.client, Version=5.0.9689.2166, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.Xrm.Client.2011.5.0.18\lib\net40\microsoft.xrm.client.dll</HintPath>
+    <Reference Include="Microsoft.Xrm.Client, Version=5.0.9689.2166, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Microsoft.CrmSdk.Extensions.5.0.18\lib\net40\Microsoft.Xrm.Client.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="microsoft.xrm.sdk, Version=5.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.Xrm.Sdk.2011.5.0.18\lib\net40\microsoft.xrm.sdk.dll</HintPath>
+    <Reference Include="Microsoft.Xrm.Sdk, Version=5.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Microsoft.CrmSdk.CoreAssemblies.5.0.18\lib\net40\Microsoft.Xrm.Sdk.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
-    <Reference Include="System.Data.Services" />
-    <Reference Include="System.Data.Services.Client" />
-    <Reference Include="System.DirectoryServices" />
-    <Reference Include="System.DirectoryServices.AccountManagement" />
-    <Reference Include="System.IdentityModel" />
     <Reference Include="System.Management.Automation, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>C:\Program Files (x86)\Reference Assemblies\Microsoft\WindowsPowerShell\3.0\System.Management.Automation.dll</HintPath>
     </Reference>
-    <Reference Include="System.Runtime.Caching" />
     <Reference Include="System.Runtime.Serialization" />
-    <Reference Include="System.Security" />
-    <Reference Include="System.ServiceModel" />
-    <Reference Include="System.ServiceModel.Activation" />
     <Reference Include="System.ServiceModel.Web" />
-    <Reference Include="System.Web" />
-    <Reference Include="System.Web.ApplicationServices" />
-    <Reference Include="System.Web.Extensions" />
-    <Reference Include="System.Web.Services" />
-    <Reference Include="System.Xml.Linq" />
-    <Reference Include="System.Data.DataSetExtensions" />
-    <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
-    <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AddCrmAssociationCommand.cs" />
@@ -117,7 +102,6 @@
     </None>
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
