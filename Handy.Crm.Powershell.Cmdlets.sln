@@ -19,6 +19,7 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SolutionItems", "SolutionItems", "{DA6CC590-E30C-4DC8-8052-C5A7D89B4E34}"
 	ProjectSection(SolutionItems) = preProject
 		HandyToolsPub.snk = HandyToolsPub.snk
+		LICENSE = LICENSE
 		README.md = README.md
 	EndProjectSection
 EndProject
