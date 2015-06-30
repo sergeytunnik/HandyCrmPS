@@ -8,25 +8,10 @@ namespace Handy.Crm.Powershell.Cmdlets
 	[Cmdlet(VerbsData.Import, "CRMSolution")]
 	public class ImportCrmSolutionCommand : CrmCmdletBase
 	{
-		private string _path;
-
 		[Parameter(
 			Mandatory = true),
 		ValidateNotNullOrEmpty]
-		public string Path
-		{
-			get
-			{
-				return _path;
-			}
-
-			set
-			{
-				_path = System.IO.Path.IsPathRooted(value)
-					? value
-					: System.IO.Path.GetFullPath(SessionState.Path.CurrentLocation.Path + value);
-			}
-		}
+		public string Path { get; set; }
 
 		[Parameter(
 			Mandatory = false)]
