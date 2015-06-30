@@ -12,6 +12,8 @@ namespace Handy.Crm.Powershell.Cmdlets
 	[Cmdlet(VerbsData.Export, "CRMSolution")]
 	public class ExportCrmSolutionCommand : CrmCmdletBase
 	{
+		private string _directoryName;
+
 		[Parameter(
 			Mandatory = true)]
 		public string Name { get; set; }
@@ -22,7 +24,20 @@ namespace Handy.Crm.Powershell.Cmdlets
 
 		[Parameter(
 			Mandatory = true)]
-		public string DirectoryName { get; set; }
+		public string DirectoryName
+		{
+			get
+			{
+				return _directoryName;
+			}
+
+			set
+			{
+				_directoryName = Path.IsPathRooted(value)
+					? value
+					: Path.GetFullPath(SessionState.Path.CurrentLocation.Path + value);
+			}
+		}
 
 		protected override void ProcessRecord()
 		{
