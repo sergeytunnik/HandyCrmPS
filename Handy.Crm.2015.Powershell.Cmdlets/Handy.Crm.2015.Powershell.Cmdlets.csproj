@@ -119,8 +119,8 @@
     <Compile Include="..\Handy.Crm.Powershell.Cmdlets\PublishCrmAllXmlCommand.cs">
       <Link>PublishCrmAllXmlCommand.cs</Link>
     </Compile>
-    <Compile Include="..\Handy.Crm.Powershell.Cmdlets\PublishCRMDuplicateRuleCommand.cs">
-      <Link>PublishCRMDuplicateRuleCommand.cs</Link>
+    <Compile Include="..\Handy.Crm.Powershell.Cmdlets\PublishCrmDuplicateRuleCommand.cs">
+      <Link>PublishCrmDuplicateRuleCommand.cs</Link>
     </Compile>
     <Compile Include="..\Handy.Crm.Powershell.Cmdlets\RemoveCrmAssociationCommand.cs">
       <Link>RemoveCrmAssociationCommand.cs</Link>
@@ -131,8 +131,8 @@
     <Compile Include="..\Handy.Crm.Powershell.Cmdlets\SetCrmStateCommand.cs">
       <Link>SetCrmStateCommand.cs</Link>
     </Compile>
-    <Compile Include="..\Handy.Crm.Powershell.Cmdlets\UnPublishCRMDuplicateRuleCommand.cs">
-      <Link>UnPublishCRMDuplicateRuleCommand.cs</Link>
+    <Compile Include="..\Handy.Crm.Powershell.Cmdlets\UnPublishCrmDuplicateRuleCommand.cs">
+      <Link>UnPublishCrmDuplicateRuleCommand.cs</Link>
     </Compile>
     <Compile Include="..\Handy.Crm.Powershell.Cmdlets\UpdateCrmEntityCommand.cs">
       <Link>UpdateCrmEntityCommand.cs</Link>

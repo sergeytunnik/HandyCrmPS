@@ -7,7 +7,7 @@ using Microsoft.Crm.Sdk.Messages;
 namespace Handy.Crm.Powershell.Cmdlets
 {
 	[Cmdlet(VerbsData.Publish, "CRMDuplicateRule")]
-	public class PublishCRMDuplicateRuleCommand : CrmCmdletBase
+	public class PublishCrmDuplicateRuleCommand : CrmCmdletBase
 	{
 		[Parameter(Mandatory = true)]
 		public Guid Id { get; set; }
