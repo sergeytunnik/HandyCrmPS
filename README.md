@@ -10,11 +10,12 @@ Handy.Crm.Powershell.Cmdlets - is a set of basic cmdlets for PowerShell. It help
 #### List of Cmdlets:
 * Add-CRMAssociation
 * Export-CRMSolution
+* Get-CRMAttribute
 * Get-CRMConnection
 * Get-CRMEntity
 * Get-CRMEntityById
 * Import-CRMSolution
-* Invoke-CrmOrganizationRequest
+* Invoke-CRMOrganizationRequest
 * Invoke-CRMWhoAmI
 * New-CRMEntity
 * Publish-CRMAllXml

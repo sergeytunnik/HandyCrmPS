@@ -8,7 +8,7 @@ using System.Collections;
 
 namespace Handy.Crm.Powershell.Cmdlets
 {
-	[Cmdlet(VerbsLifecycle.Invoke, "CrmOrganizationRequest")]
+	[Cmdlet(VerbsLifecycle.Invoke, "CRMOrganizationRequest")]
 	public class InvokeCrmOrganizationRequestCommand : CrmCmdletBase
 	{
 		[Parameter(
