@@ -9,7 +9,8 @@ namespace Handy.Crm.Powershell.Cmdlets
     protected OrganizationService organizationService { get; set; }
 
     [Parameter(
-      Mandatory = true)]
+      Mandatory = true,
+			Position = 0)]
     [ValidateNotNull]
     public CrmConnection Connection { get; set; }
 
