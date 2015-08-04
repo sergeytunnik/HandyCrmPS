@@ -128,6 +128,12 @@
     <Compile Include="..\Handy.Crm.Powershell.Cmdlets\RemoveCrmEntityCommand.cs">
       <Link>RemoveCrmEntityCommand.cs</Link>
     </Compile>
+    <Compile Include="..\Handy.Crm.Powershell.Cmdlets\RetrieveSharedPrincipalsAndAccessCommand.cs">
+      <Link>RetrieveSharedPrincipalsAndAccessCommand.cs</Link>
+    </Compile>
+    <Compile Include="..\Handy.Crm.Powershell.Cmdlets\RevokeAccessCommand.cs">
+      <Link>RevokeAccessCommand.cs</Link>
+    </Compile>
     <Compile Include="..\Handy.Crm.Powershell.Cmdlets\SetCrmStateCommand.cs">
       <Link>SetCrmStateCommand.cs</Link>
     </Compile>

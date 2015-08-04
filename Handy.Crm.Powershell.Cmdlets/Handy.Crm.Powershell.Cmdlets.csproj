@@ -92,6 +92,8 @@
     <Compile Include="PublishCrmDuplicateRuleCommand.cs" />
     <Compile Include="RemoveCrmAssociationCommand.cs" />
     <Compile Include="RemoveCrmEntityCommand.cs" />
+    <Compile Include="RetrieveSharedPrincipalsAndAccessCommand.cs" />
+    <Compile Include="RevokeAccessCommand.cs" />
     <Compile Include="SetCrmStateCommand.cs" />
     <Compile Include="UnpublishCrmDuplicateRuleCommand.cs" />
     <Compile Include="UpdateCrmEntityCommand.cs" />
