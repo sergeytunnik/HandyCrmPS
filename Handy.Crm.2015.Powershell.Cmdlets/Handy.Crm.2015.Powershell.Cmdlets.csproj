@@ -101,6 +101,9 @@
     <Compile Include="..\Handy.Crm.Powershell.Cmdlets\GetCrmEntityCommand.cs">
       <Link>GetCrmEntityCommand.cs</Link>
     </Compile>
+    <Compile Include="..\Handy.Crm.Powershell.Cmdlets\ImportCrmImportMappingCommand.cs">
+      <Link>ImportCrmImportMappingCommand.cs</Link>
+    </Compile>
     <Compile Include="..\Handy.Crm.Powershell.Cmdlets\ImportCrmSolutionCommand.cs">
       <Link>ImportCrmSolutionCommand.cs</Link>
     </Compile>

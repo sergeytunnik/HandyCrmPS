@@ -75,6 +75,7 @@
     <Compile Include="AddCrmAssociationCommand.cs" />
     <Compile Include="FetchExpressionHelpers.cs" />
     <Compile Include="GetCrmAttribute.cs" />
+    <Compile Include="ImportCrmImportMappingCommand.cs" />
     <Compile Include="InvokeCrmOrganizationRequestCommand.cs" />
     <Compile Include="NewCrmEntityCommand.cs" />
     <Compile Include="CrmCmdletBase.cs" />
