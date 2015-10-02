@@ -1,4 +1,4 @@
-﻿@{
+@{
 
 # Script module or binary module file associated with this manifest.
 RootModule = 'Handy.Crm.2015.Powershell.Cmdlets.dll'
@@ -16,7 +16,7 @@ Author = 'Sergey Tunnik'
 CompanyName = ''
 
 # Copyright statement for this module
-Copyright = '(c) 2015 All rights reserved.'
+Copyright = '(c) 2015 Sergey Tunnik, licensed under MIT Licence.'
 
 # Description of the functionality provided by this module
 Description = 'Set of basic cmdlets for PowerShell. It helps running common routine day-to-day tasks and as part of DevOps processes in Microsoft Dynamics CRM.'
@@ -31,7 +31,7 @@ PowerShellVersion = '4.0'
 # PowerShellHostVersion = ''
 
 # Minimum version of Microsoft .NET Framework required by this module
-# DotNetFrameworkVersion = ''
+DotNetFrameworkVersion = '4.5'
 
 # Minimum version of the common language runtime (CLR) required by this module
 # CLRVersion = ''
