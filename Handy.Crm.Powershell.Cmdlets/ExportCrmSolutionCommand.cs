@@ -4,11 +4,6 @@ using Microsoft.Crm.Sdk.Messages;
 
 namespace Handy.Crm.Powershell.Cmdlets
 {
-	public enum ExportTypeEnum
-	{
-		Managed, Unmanaged, Both
-	};
-
 	[Cmdlet(VerbsData.Export, "CRMSolution")]
 	public class ExportCrmSolutionCommand : CrmCmdletBase
 	{
@@ -16,14 +11,16 @@ namespace Handy.Crm.Powershell.Cmdlets
 
 		[Parameter(
 			Mandatory = true)]
-		public string Name { get; set; }
+		[ValidateNotNullOrEmpty]
+		public string SolutionName { get; set; }
 
 		[Parameter(
-			Mandatory = true)]
-		public ExportTypeEnum Type { get; set; }
+			Mandatory = false)]
+		public SwitchParameter Managed { get; set; }
 
 		[Parameter(
-			Mandatory = true)]
+			Mandatory = false)]
+		[ValidateNotNullOrEmpty]
 		public string DirectoryName
 		{
 			get
@@ -39,33 +36,19 @@ namespace Handy.Crm.Powershell.Cmdlets
 			}
 		}
 
+		[Parameter(
+			Mandatory = false)]
+		[ValidateNotNullOrEmpty]
+		public string SolutionFileName { get; set; }
+
 		protected override void ProcessRecord()
 		{
 			base.ProcessRecord();
 
-			switch (Type)
-			{
-				case ExportTypeEnum.Managed:
-					ExportSolutionHelper(Name, true);
-					break;
-
-				case ExportTypeEnum.Unmanaged:
-					ExportSolutionHelper(Name, false);
-					break;
-
-				case ExportTypeEnum.Both:
-					ExportSolutionHelper(Name, false);
-					ExportSolutionHelper(Name, true);
-					break;
-			}
-		}
-
-		private void ExportSolutionHelper(string solutionName, bool isManaged)
-		{
 			ExportSolutionRequest exportSolutionRequest = new ExportSolutionRequest()
 			{
-				Managed = isManaged,
-				SolutionName = solutionName,
+				Managed = Managed,
+				SolutionName = SolutionName,
 			};
 
 			WriteVerbose("Starting solution exporting");
@@ -73,10 +56,15 @@ namespace Handy.Crm.Powershell.Cmdlets
 
 			var solutionXml = exportSolutionResponse.ExportSolutionFile;
 
-			string solutionFileName = string.Format("{0}{1}.zip", solutionName, isManaged ? "_managed" : "");
-			string solutionPath = Path.Combine(DirectoryName, solutionFileName);
+			if (string.IsNullOrEmpty(DirectoryName))
+				DirectoryName = SessionState.Path.CurrentLocation.Path;
 
-			WriteVerbose(string.Format("Saving solution ({0}) at {1}", solutionName, solutionPath));
+			if (string.IsNullOrEmpty(SolutionFileName))
+				SolutionFileName = string.Format("{0}{1}.zip", SolutionName, Managed ? "_managed" : "");
+
+			string solutionPath = Path.Combine(DirectoryName, SolutionFileName);
+
+			WriteVerbose(string.Format("Saving solution ({0}) at {1}", SolutionName, solutionPath));
 			File.WriteAllBytes(solutionPath, solutionXml);
 		}
 	}
