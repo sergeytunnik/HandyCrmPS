@@ -4,7 +4,7 @@
 RootModule = 'Handy.Crm.Powershell.Cmdlets.dll'
 
 # Version number of this module.
-ModuleVersion = '0.1.0.1'
+ModuleVersion = '0.2.0.0'
 
 # ID used to uniquely identify this module
 GUID = '921009b6-0b33-49b8-a37a-d864da65160f'
