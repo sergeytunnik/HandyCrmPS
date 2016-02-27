@@ -1,14 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.IO;
 using System.Xml;
 using Microsoft.Xrm.Sdk.Query;
 
 namespace Handy.Crm.Powershell.Cmdlets
 {
-	static class FetchExpressionHelpers
+    static class FetchExpressionHelpers
 	{
 		public static void MakePaged(this FetchExpression fetchExpression, int count, int page, string pagingCookie)
 		{
@@ -18,11 +14,11 @@ namespace Handy.Crm.Powershell.Cmdlets
 			XmlAttributeCollection attrs = doc.DocumentElement.Attributes;
 
 			XmlAttribute countAttr = doc.CreateAttribute("count");
-			countAttr.Value = System.Convert.ToString(count);
+			countAttr.Value = count.ToString();
 			attrs.Append(countAttr);
 
 			XmlAttribute pageAttr = doc.CreateAttribute("page");
-			pageAttr.Value = System.Convert.ToString(page);
+			pageAttr.Value = page.ToString();
 			attrs.Append(pageAttr);
 
 			if (pagingCookie != null)
