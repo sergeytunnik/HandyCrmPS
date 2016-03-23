@@ -1,7 +1,7 @@
 @{
 
 # Script module or binary module file associated with this manifest.
-RootModule = 'Handy.Crm.Powershell.Cmdlets.dll'
+# RootModule = ''
 
 # Version number of this module.
 ModuleVersion = '0.2.0.0'
@@ -55,7 +55,7 @@ RequiredAssemblies = 'Microsoft.Xrm.Sdk.dll', 'Microsoft.Xrm.Client.dll', 'Micro
 # FormatsToProcess = @()
 
 # Modules to import as nested modules of the module specified in RootModule/ModuleToProcess
-# NestedModules = @()
+NestedModules = @('Handy.Crm.Powershell.Cmdlets.dll', 'Handy.Crm.Powershell.Cmdlets.psm1')
 
 # Functions to export from this module
 FunctionsToExport = '*'
