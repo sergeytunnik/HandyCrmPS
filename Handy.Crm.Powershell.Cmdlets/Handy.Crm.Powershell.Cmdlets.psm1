@@ -202,7 +202,7 @@ function Get-CRMPrivilege {
         }
     }
 
-    $privilege = Get-CRMEntity -Connection $Connection -FetchXml ($fetchXml -f $condition) | Select-Object -Index 0
+    $privilege = (Get-CRMEntity -Connection $Connection -FetchXml ($fetchXml -f $condition)) | Select-Object -Index 0
     $privilege
 }
 
@@ -297,7 +297,7 @@ function Get-CRMSolution {
 </fetch>
 "@
 
-    $solution = Get-CRMEntity -Connection $Connection -FetchXml ($fetchXml -f $Name) | Select-Object -Index 0
+    $solution = (Get-CRMEntity -Connection $Connection -FetchXml ($fetchXml -f $Name)) | Select-Object -Index 0
     $solution
 }
 
@@ -437,7 +437,7 @@ function New-CRMBusinessUnit {
 </fetch>
 "@
 
-        $bu = Get-CRMEntity -Connection $Connection -FetchXml $fetchXml | Select-Object -Index 0
+        $bu = (Get-CRMEntity -Connection $Connection -FetchXml $fetchXml) | Select-Object -Index 0
         $ParentBusinessUnitId = $bu.Id
     }
 
@@ -529,7 +529,7 @@ function Get-CRMDuplicateRule {
 </fetch>
 "@
 
-    $duplicateRule = Get-CRMEntity -Connection $Connection -FetchXml ($fetchXml -f $Name, $StateCode, $StatusCode) | Select-Object -Index 0
+    $duplicateRule = (Get-CRMEntity -Connection $Connection -FetchXml ($fetchXml -f $Name, $StateCode, $StatusCode)) | Select-Object -Index 0
 
     $duplicateRule
 }
@@ -631,7 +631,7 @@ function Add-CRMRoleForUser {
 </fetch>
 "@
 
-    $role = Get-CRMEntity -Connection $Connection -FetchXml ($fetchXml -f $RoleName, $User['businessunitid'].Id) | Select-Object -Index 0
+    $role = (Get-CRMEntity -Connection $Connection -FetchXml ($fetchXml -f $RoleName, $User['businessunitid'].Id)) | Select-Object -Index 0
 
     if ($null -eq $role) {
         throw "Couldn't find role $($RoleName) or something went wrong."
@@ -670,7 +670,7 @@ function Remove-CRMRoleForUser {
 </fetch>
 "@
 
-    $role = Get-CRMEntity -Connection $Connection -FetchXml ($fetchXml -f $RoleName, $User['businessunitid'].Id) | Select-Object -Index 0
+    $role = (Get-CRMEntity -Connection $Connection -FetchXml ($fetchXml -f $RoleName, $User['businessunitid'].Id)) | Select-Object -Index 0
 
     if ($null -eq $role) {
         throw "Couldn't find role $($RoleName) or something went wrong."
@@ -744,7 +744,7 @@ function Get-CRMTransactionCurrency {
 </fetch>
 "@
 
-    $tc = Get-CRMEntity -Connection $Connection -FetchXml ($fetchXml -f $CurrencyCode) | Select-Object -Index 0
+    $tc = (Get-CRMEntity -Connection $Connection -FetchXml ($fetchXml -f $CurrencyCode)) | Select-Object -Index 0
 
     $tc
 }
@@ -1002,7 +1002,7 @@ function Get-CRMSiteMap {
 </fetch>
 "@
 
-    $sitemap = Get-CRMEntity -Connection $Connection -FetchXml $fetchXml | Select-Object -Index 0
+    $sitemap = (Get-CRMEntity -Connection $Connection -FetchXml $fetchXml) | Select-Object -Index 0
 
     $sitemap['sitemapxml']
 }
@@ -1031,7 +1031,7 @@ function Set-CRMSiteMap {
 "@
 
     Write-Verbose -Message "Getting sitemap"
-    $sitemap = Get-CRMEntity -Connection $Connection -FetchXml $fetchXml | Select-Object -Index 0
+    $sitemap = (Get-CRMEntity -Connection $Connection -FetchXml $fetchXml) | Select-Object -Index 0
     $sitemap['sitemapxml'] = $SiteMapXml
     
     Write-Verbose -Message "Updating sitemap"
