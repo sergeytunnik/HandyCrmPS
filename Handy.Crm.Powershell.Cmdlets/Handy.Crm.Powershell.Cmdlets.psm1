@@ -1071,5 +1071,25 @@ function Publish-CRMXml {
 }
 
 
+function Get-CRMVersion {
+    <#
+    .SYNOPSIS
+    Returns CRM version.
+    #>
+    [CmdletBinding()]
+    [OutputType([System.Version])]
+    Param(
+        [Parameter(Mandatory=$true)]
+        [Microsoft.Xrm.Client.CrmConnection]$Connection
+    )
+    
+    $response = Invoke-CRMOrganizationRequest -Connection $Connection -RequestName 'RetrieveVersion' -Parameters @{}
+    
+    $version = [System.Version]::Parse($response['Version'])
+    
+    $version
+}
+
+
 New-Alias -Name 'Activate-CRMWorkflow' -Value 'Enable-CRMWorkflow'
 New-Alias -Name 'Deactivate-CRMWorkflow' -Value 'Disable-CRMWorkflow' 
