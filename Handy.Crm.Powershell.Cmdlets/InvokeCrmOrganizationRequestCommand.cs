@@ -17,7 +17,7 @@ namespace Handy.Crm.Powershell.Cmdlets
 		public string RequestName { get; set; }
 
 		[Parameter(
-			Mandatory = true)]
+			Mandatory = false)]
 		[ValidateNotNull]
 		public Hashtable Parameters { get; set; }
 
@@ -30,9 +30,12 @@ namespace Handy.Crm.Powershell.Cmdlets
 				Parameters = new ParameterCollection()
 			};
 
-			foreach (string key in Parameters.Keys)
+			if (MyInvocation.BoundParameters.ContainsKey("Parameters"))
 			{
-				orgRequest.Parameters.Add(new KeyValuePair<string, object>(key, Parameters[key].UnwrapPSObject()));
+				foreach (string key in Parameters.Keys)
+				{
+					orgRequest.Parameters.Add(new KeyValuePair<string, object>(key, Parameters[key].UnwrapPSObject()));
+				}
 			}
 
 			OrganizationResponse orgResponse = (OrganizationResponse)organizationService.Execute(orgRequest);

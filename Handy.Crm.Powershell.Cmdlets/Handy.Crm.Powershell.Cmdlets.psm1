@@ -1083,7 +1083,7 @@ function Get-CRMVersion {
         [Microsoft.Xrm.Client.CrmConnection]$Connection
     )
     
-    $response = Invoke-CRMOrganizationRequest -Connection $Connection -RequestName 'RetrieveVersion' -Parameters @{}
+    $response = Invoke-CRMOrganizationRequest -Connection $Connection -RequestName 'RetrieveVersion'
     
     $version = [System.Version]::Parse($response['Version'])
     
