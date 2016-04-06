@@ -13,8 +13,10 @@ namespace Handy.Crm.Powershell.Cmdlets
         {
             AttributeCollection attributes = entity.Attributes;
 
-            foreach (var attribute in attributes)
+            for (var i = attributes.Count - 1; i > -1; i--)
             {
+                var attribute = attributes.ElementAt(i);
+
                 var psobj = attribute.Value as PSObject;
 
                 if (psobj != null)
