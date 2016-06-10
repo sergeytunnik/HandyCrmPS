@@ -2,64 +2,84 @@
 using System.IO;
 using System.Management.Automation;
 using Microsoft.Crm.Sdk.Messages;
+using Microsoft.Xrm.Sdk.Messages;
 
 namespace Handy.Crm.Powershell.Cmdlets
 {
-	[Cmdlet(VerbsData.Import, "CRMSolution")]
-	public class ImportCrmSolutionCommand : CrmCmdletBase
-	{
-		private string _path;
+    [Cmdlet(VerbsData.Import, "CRMSolution")]
+    [OutputType("System.Guid")]
+    public class ImportCrmSolutionCommand : CrmCmdletBase
+    {
+        private string AbsolutePath
+        {
+            get
+            {
+                return System.IO.Path.IsPathRooted(Path)
+                    ? Path
+                    : System.IO.Path.GetFullPath(System.IO.Path.Combine(SessionState.Path.CurrentLocation.Path, Path));
+            }
+        }
 
-		[Parameter(
-			Mandatory = true),
-		ValidateNotNullOrEmpty]
-		public string Path
-		{
-			get
-			{
-				return _path;
-			}
+        [Parameter(
+            Mandatory = true),
+        ValidateNotNullOrEmpty]
+        public string Path { get; set; }
 
-			set
-			{
-				_path = System.IO.Path.IsPathRooted(value)
-					? value
-					: System.IO.Path.GetFullPath(SessionState.Path.CurrentLocation.Path + value);
-			}
-		}
+        [Parameter(
+            Mandatory = false)]
+        public SwitchParameter ConvertToManaged { get; set; }
 
-		[Parameter(
-			Mandatory = false)]
-		public SwitchParameter OverwriteCustomizations { get; set; }
+        [Parameter(
+            Mandatory = false)]
+        public SwitchParameter OverwriteCustomizations { get; set; }
 
-		[Parameter(
-			Mandatory = false)]
-		public SwitchParameter PublishWorkflows { get; set; }
+        [Parameter(
+            Mandatory = false)]
+        public SwitchParameter PublishWorkflows { get; set; }
 
-		[Parameter(
-			Mandatory = false)]
-		public SwitchParameter PassThru { get; set; }
+        [Parameter(
+            Mandatory = false)]
+        public SwitchParameter SkipProductUpdateDependencies { get; set; }
 
-		protected override void ProcessRecord()
-		{
-			base.ProcessRecord();
+        [Parameter(
+            Mandatory = false)]
+        [Alias("Async")]
+        public SwitchParameter Asynchronous { get; set; }
 
-			byte[] fileBytes = File.ReadAllBytes(Path);
+        protected override void ProcessRecord()
+        {
+            base.ProcessRecord();
 
-			ImportSolutionRequest impSolutionRequest = new ImportSolutionRequest()
-			{
-				CustomizationFile = fileBytes,
-				ImportJobId = Guid.NewGuid(),
-				OverwriteUnmanagedCustomizations = OverwriteCustomizations,
-				PublishWorkflows = PublishWorkflows
-			};
+            byte[] fileBytes = File.ReadAllBytes(AbsolutePath);
+            Guid jobId = Guid.NewGuid();
 
-			WriteVerbose(string.Format("Start importing solution from {0}", Path));
-			organizationService.Execute(impSolutionRequest);
-			WriteVerbose("Finished importing solution");
+            ImportSolutionRequest impSolutionRequest = new ImportSolutionRequest()
+            {
+                ConvertToManaged = ConvertToManaged,
+                CustomizationFile = fileBytes,
+                ImportJobId = jobId,
+                OverwriteUnmanagedCustomizations = OverwriteCustomizations,
+                PublishWorkflows = PublishWorkflows,
+                SkipProductUpdateDependencies = SkipProductUpdateDependencies
+            };
 
-			if (PassThru)
-				WriteObject(impSolutionRequest.ImportJobId);
-		}
-	}
+            WriteVerbose(string.Format("Starting importing solution from {0}", AbsolutePath));
+
+            if (Asynchronous)
+            {
+                var response = (ExecuteAsyncResponse)organizationService.Execute(
+                    new ExecuteAsyncRequest
+                    {
+                        Request = impSolutionRequest
+                    });
+            }
+            else
+            {
+                organizationService.Execute(impSolutionRequest);
+                WriteVerbose("Finished importing solution");
+            }
+
+            WriteObject(jobId);
+        }
+    }
 }
