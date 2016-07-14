@@ -1103,5 +1103,54 @@ function Get-CRMVersion {
 }
 
 
+function Get-CRMRelationship {
+    [CmdletBinding()]
+    [OutputType([Microsoft.Xrm.Sdk.Metadata.RelationshipMetadataBase])]
+    Param(
+        [Parameter(Mandatory=$true)]
+        [Microsoft.Xrm.Client.CrmConnection]$Connection,
+
+        [Parameter(Mandatory=$true)]
+        [ValidateNotNullOrEmpty()]
+        [string]$Name,
+
+        [Parameter(Mandatory=$false)]
+        [switch]$RetrieveAsIfPublished
+    )
+
+    $parameters = @{}
+
+    $parameters['MetadataId'] = [guid]::Empty
+    $parameters['RetrieveAsIfPublished'] = $RetrieveAsIfPublished.IsPresent
+    $parameters['Name'] = $Name
+
+    $response = Invoke-CRMOrganizationRequest -Connection $Connection -RequestName 'RetrieveRelationship' -Parameters $parameters
+
+    $response['RelationshipMetadata']    
+}
+
+
+function Update-CRMRelationship {
+    [CmdletBinding()]
+    Param(
+        [Parameter(Mandatory=$true)]
+        [Microsoft.Xrm.Client.CrmConnection]$Connection,
+
+        [Parameter(Mandatory=$true)]
+        [Microsoft.Xrm.Sdk.Metadata.RelationshipMetadataBase]$Relationship,
+
+        [Parameter(Mandatory=$false)]
+        [switch]$MergeLabels
+    )
+
+    $parameters = @{}
+
+    $parameters['MergeLabels'] = $MergeLabels.IsPresent
+    $parameters['Relationship'] = $Relationship
+
+    $response = Invoke-CRMOrganizationRequest -Connection $Connection -RequestName 'UpdateRelationship' -Parameters $parameters
+}
+
+
 New-Alias -Name 'Activate-CRMWorkflow' -Value 'Enable-CRMWorkflow' -Force
 New-Alias -Name 'Deactivate-CRMWorkflow' -Value 'Disable-CRMWorkflow' -Force
