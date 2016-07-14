@@ -52,21 +52,33 @@ function Get-CRMEntityMetadata {
         [Parameter(Mandatory=$true)]
         [Microsoft.Xrm.Client.CrmConnection]$Connection,
 
-        [Parameter(Mandatory=$true)]
+        [Parameter(Mandatory=$false)]
         [ValidateNotNullOrEmpty()]
-        [string]$LogicalName
+        [string]$LogicalName,
+
+        [Parameter(Mandatory=$false)]
+        [Microsoft.Xrm.Sdk.Metadata.EntityFilters]$EntityFilters = [Microsoft.Xrm.Sdk.Metadata.EntityFilters]::Default,
+
+        [Parameter(Mandatory=$false)]
+        [switch]$RetrieveAsIfPublished
     )
 
     Begin {}
     Process {
         $parameters = @{}
 
-        $parameters['EntityFilters'] = [Microsoft.Xrm.Sdk.Metadata.EntityFilters]::All
-        $parameters['LogicalName'] = $LogicalName
-        $parameters['MetadataId'] = [guid]::Empty
-        $parameters['RetrieveAsIfPublished'] = $false
+        $parameters['EntityFilters'] = $EntityFilters
+        $parameters['RetrieveAsIfPublished'] = $RetrieveAsIfPublished.IsPresent
 
-        $response = Invoke-CRMOrganizationRequest -Connection $Connection -RequestName 'RetrieveEntity' -Parameters $parameters
+        if($PSBoundParameters.ContainsKey('LogicalName')) {
+            $parameters['LogicalName'] = $LogicalName
+            $parameters['MetadataId'] = [guid]::Empty
+
+            $response = Invoke-CRMOrganizationRequest -Connection $Connection -RequestName 'RetrieveEntity' -Parameters $parameters
+        }
+        else {
+            $response = Invoke-CRMOrganizationRequest -Connection $Connection -RequestName 'RetrieveAllEntities' -Parameters $parameters
+        }
 
         $response['EntityMetadata']
     }
@@ -1091,5 +1103,5 @@ function Get-CRMVersion {
 }
 
 
-New-Alias -Name 'Activate-CRMWorkflow' -Value 'Enable-CRMWorkflow'
-New-Alias -Name 'Deactivate-CRMWorkflow' -Value 'Disable-CRMWorkflow' 
+New-Alias -Name 'Activate-CRMWorkflow' -Value 'Enable-CRMWorkflow' -Force
+New-Alias -Name 'Deactivate-CRMWorkflow' -Value 'Disable-CRMWorkflow' -Force
