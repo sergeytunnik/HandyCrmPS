@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Management.Automation;
 using Microsoft.Crm.Sdk.Messages;
@@ -51,13 +52,14 @@ namespace Handy.Crm.Powershell.Cmdlets
             base.ProcessRecord();
 
             byte[] fileBytes = File.ReadAllBytes(AbsolutePath);
-            Guid jobId = Guid.NewGuid();
+            Guid importJobId = Guid.NewGuid();
+            Guid asyncJobId = Guid.Empty;
 
             ImportSolutionRequest impSolutionRequest = new ImportSolutionRequest()
             {
                 ConvertToManaged = ConvertToManaged,
                 CustomizationFile = fileBytes,
-                ImportJobId = jobId,
+                ImportJobId = importJobId,
                 OverwriteUnmanagedCustomizations = OverwriteCustomizations,
                 PublishWorkflows = PublishWorkflows,
                 SkipProductUpdateDependencies = SkipProductUpdateDependencies
@@ -72,6 +74,8 @@ namespace Handy.Crm.Powershell.Cmdlets
                     {
                         Request = impSolutionRequest
                     });
+
+                asyncJobId = response.AsyncJobId;
             }
             else
             {
@@ -79,7 +83,11 @@ namespace Handy.Crm.Powershell.Cmdlets
                 WriteVerbose("Finished importing solution");
             }
 
-            WriteObject(jobId);
+            WriteObject(new Dictionary<string, Guid>()
+            {
+                {"importjobid", importJobId },
+                {"asyncjobid", asyncJobId }
+            });
         }
     }
 }
