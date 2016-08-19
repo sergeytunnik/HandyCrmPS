@@ -4,24 +4,33 @@ using System;
 
 namespace Handy.Crm.Powershell.Cmdlets
 {
-	[Cmdlet(VerbsCommon.Get, "CRMConnection")]
-	public class GetCrmConnectionCommand : PSCmdlet
-	{
-		[Parameter(
-			Mandatory = true)]
-		[ValidateNotNullOrEmpty]
-		public string ConnectionString { get; set; }
+    [Cmdlet(VerbsCommon.Get, "CRMConnection")]
+    public class GetCrmConnectionCommand : PSCmdlet
+    {
+        [Parameter(
+            Mandatory = true)]
+        [ValidateNotNullOrEmpty]
+        public string ConnectionString { get; set; }
 
-		protected override void BeginProcessing()
-		{
-			base.BeginProcessing();
+        [Parameter(
+            Mandatory = false)]
+        [ValidateNotNull]
+        public Guid CallerId { get; set; }
 
-			CrmConnection crmConnection = CrmConnection.Parse(ConnectionString);
-			crmConnection.ProxyTypesEnabled = false;
-			// Defaul is PerName
-			//crmConnection.ServiceConfigurationInstanceMode = ServiceConfigurationInstanceMode.PerName;
+        protected override void BeginProcessing()
+        {
+            base.BeginProcessing();
 
-			WriteObject(crmConnection);
-		}
-	}
+            CrmConnection crmConnection = CrmConnection.Parse(ConnectionString);
+            crmConnection.ProxyTypesEnabled = false;
+
+            if (MyInvocation.BoundParameters.ContainsKey("CallerId"))
+                crmConnection.CallerId = CallerId;
+
+            // Defaul is PerName
+            //crmConnection.ServiceConfigurationInstanceMode = ServiceConfigurationInstanceMode.PerName;
+
+            WriteObject(crmConnection);
+        }
+    }
 }
