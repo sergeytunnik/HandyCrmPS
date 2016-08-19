@@ -1152,5 +1152,65 @@ function Update-CRMRelationship {
 }
 
 
+function Wait-CRMAsyncJob {
+    [CmdletBinding()]
+    Param(
+        [Parameter(Mandatory=$true)]
+        [Microsoft.Xrm.Client.CrmConnection]$Connection,
+
+        [Parameter(Mandatory=$true)]
+        [guid]$AsyncJobId,
+
+        [Parameter(Mandatory=$false)]
+        [int]$CheckPeriod = 5
+    )
+    
+    do {
+        try {
+            Write-Verbose -Message "Checking AsyncJob $($AsyncJobId)"
+            $asyncjob = Get-CRMEntityById -Connection $Connection -EntityName 'asyncoperation' -Id $AsyncJobId -AllColumns
+
+            Write-Verbose "AsyncJob $($AsyncJobId) state and status: $($asyncjob.FormattedValues['statecode']), $($asyncjob.FormattedValues['statuscode'])"
+        }
+        catch {
+            if ($_.Exception.Message -eq 'SQL timeout expired.') {
+                Write-Warning -Message $_.Exception.Message 
+            } else {
+                throw $_
+            }
+        }
+
+        Start-Sleep -Seconds $CheckPeriod
+    } until ($asyncjob['statecode'] -eq 3) # 3 - Completed
+
+    Write-Verbose -Message "AsyncJob $($AsyncJobId) completed in $($asyncjob['executiontimespan']) seconds."
+
+    if ($asyncjob['statuscode'] -eq 31) {
+        Write-Warning -Message "AsyncJob $($AsyncJobId) failed"
+    }
+}
+
+
+function Save-CRMFormattedImportJobResult {
+    [CmdletBinding()]
+    Param(
+        [Parameter(Mandatory=$true)]
+        [Microsoft.Xrm.Client.CrmConnection]$Connection,
+
+        [Parameter(Mandatory=$true)]
+        [guid]$ImportJobId,
+
+        [Parameter(Mandatory=$false)]
+        [string]$FilePath
+    )
+
+    $parameters = @{'ImportJobId' = $ImportJobId}
+
+    $response = Invoke-CRMOrganizationRequest -Connection $Connection -RequestName 'RetrieveFormattedImportJobResults' -Parameters $parameters
+
+    Out-File -FilePath $FilePath -InputObject $response['FormattedResults']
+}
+
+
 New-Alias -Name 'Activate-CRMWorkflow' -Value 'Enable-CRMWorkflow' -Force
 New-Alias -Name 'Deactivate-CRMWorkflow' -Value 'Disable-CRMWorkflow' -Force
