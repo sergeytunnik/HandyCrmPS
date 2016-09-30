@@ -1212,5 +1212,5 @@ function Save-CRMFormattedImportJobResult {
 }
 
 
-New-Alias -Name 'Activate-CRMWorkflow' -Value 'Enable-CRMWorkflow' -Force
-New-Alias -Name 'Deactivate-CRMWorkflow' -Value 'Disable-CRMWorkflow' -Force
+Set-Alias -Name 'Activate-CRMWorkflow' -Value 'Enable-CRMWorkflow'
+Set-Alias -Name 'Deactivate-CRMWorkflow' -Value 'Disable-CRMWorkflow'

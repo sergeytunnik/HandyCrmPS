@@ -8,7 +8,7 @@ using Microsoft.Xrm.Sdk.Messages;
 namespace Handy.Crm.Powershell.Cmdlets
 {
     [Cmdlet(VerbsData.Import, "CRMSolution")]
-    [OutputType("System.Guid")]
+    [OutputType("System.Collections.Generic.Dictionary<string, Guid>")]
     public class ImportCrmSolutionCommand : CrmCmdletBase
     {
         private string AbsolutePath
