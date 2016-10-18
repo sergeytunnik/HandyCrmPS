@@ -694,46 +694,6 @@ function Remove-CRMRoleForUser {
 }
 
 
-Add-Type -TypeDefinition @"
-    public enum CurrencyCodeEnum
-    {
-        CHF,
-        EUR,
-        GBP,
-        JPY,
-        RUB,
-        USD
-    }
-"@
-
-$currencyInfo = @{
-    [CurrencyCodeEnum]::CHF = @{
-        'name' = 'Swiss franc'
-        'symbol' = 'Fr.'
-    }
-    [CurrencyCodeEnum]::EUR = @{
-        'name' = 'Euro'
-        'symbol' = '€'
-    }
-    [CurrencyCodeEnum]::GBP = @{
-        'name' = 'Pound Sterling'
-        'symbol' = '£'
-    }
-    [CurrencyCodeEnum]::JPY = @{
-        'name' = '円'
-        'symbol' = '¥'
-    }
-    [CurrencyCodeEnum]::RUB = @{
-        'name' = 'Russian ruble'
-        'symbol' = 'р.'
-    }
-    [CurrencyCodeEnum]::USD = @{
-        'name' = 'US Dollar'
-        'symbol' = '$'
-    }
-}
-
-
 function Get-CRMTransactionCurrency {
     [CmdletBinding()]
     [OutputType([Microsoft.Xrm.Sdk.Entity])]
@@ -768,9 +728,21 @@ function New-CRMTransactionCurrency {
     Param(
         [Parameter(Mandatory=$true)]
         [Microsoft.Xrm.Client.CrmConnection]$Connection,
+     
+        [Parameter(Mandatory=$true)]
+        [string]$CurrencyName,
 
         [Parameter(Mandatory=$true)]
-        [CurrencyCodeEnum]$CurrencyCode,
+        [string]$IsoCurrencyCode,
+
+        [Parameter(Mandatory=$true)]
+        [string]$CurrencySymbol,
+
+        [Parameter(Mandatory=$false)]
+        [int]$CurrencyPrecision = 2,
+
+        [Parameter(Mandatory=$false)]
+        [decimal]$ExchangeRate = [decimal]1.0,
 
         [Parameter(Mandatory=$false)]
         [ValidateNotNullOrEmpty()]
@@ -778,16 +750,18 @@ function New-CRMTransactionCurrency {
     )
 
     $currencyAttributes = @{}
-    $currencyAttributes['currencyprecision'] = 2
-    $currencyAttributes['exchangerate'] = [decimal]1.0
-    $currencyAttributes['isocurrencycode'] = [string]$CurrencyCode
+    $currencyAttributes['currencyprecision'] = $CurrencyPrecision
+    $currencyAttributes['exchangerate'] = $ExchangeRate
+    $currencyAttributes['isocurrencycode'] = $IsoCurrencyCode
 
-    $currencyAttributes['currencyname'] = $currencyInfo[$CurrencyCode]['name']
-    $currencyAttributes['currencysymbol'] = $currencyInfo[$CurrencyCode]['symbol']
+    $currencyAttributes['currencyname'] = $CurrencyName
+    $currencyAttributes['currencysymbol'] = $CurrencySymbol
 
     Merge-CRMAttribute -From $AdditionAttributes -To $currencyAttributes
 
     $resp = New-CRMEntity -Connection $Connection -EntityName 'transactioncurrency' -Attributes $currencyAttributes -ReturnResponses
+
+    $resp | Assert-CRMOrganizationResponse
 
     $resp.Responses[0].Response.id
 }
