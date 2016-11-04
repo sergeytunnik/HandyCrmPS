@@ -9,40 +9,44 @@ using Microsoft.Xrm.Sdk.Messages;
 
 namespace Handy.Crm.Powershell.Cmdlets
 {
-	[Cmdlet(VerbsCommon.New, "CRMEntity")]
-	public class NewCrmEntityCommand : CrmExecuteMultipleCmdletBase
-	{
-		[Parameter(
-			Mandatory = true)]
-		[ValidateNotNullOrEmpty]
-		public string EntityName { get; set; }
+  [Cmdlet(VerbsCommon.New, "CRMEntity")]
+  public class NewCrmEntityCommand : CrmExecuteMultipleCmdletBase
+  {
+    [Parameter(
+      Mandatory = true)]
+    [ValidateNotNullOrEmpty]
+    public string EntityName { get; set; }
 
-		[Parameter(
-			Mandatory = true)]
-		[ValidateNotNull]
-		public Hashtable Attributes { get; set; }
+    [Parameter(
+      Mandatory = true)]
+    [ValidateNotNull]
+    public Hashtable Attributes { get; set; }
 
-		protected override void ProcessRecord()
-		{
-			base.ProcessRecord();
+    [Parameter(Mandatory = false)]
+    public SwitchParameter SuppressDuplicateDetection { get; set; }
 
-			Entity entity = new Entity(EntityName);
+    protected override void ProcessRecord()
+    {
+      base.ProcessRecord();
 
-			WriteVerbose("Unwrapping attributes from PSObject");
-			foreach(string key in Attributes.Keys)
-			{
-				entity[key] = Attributes[key].UnwrapPSObject();
-			}
+      Entity entity = new Entity(EntityName);
 
-			CreateRequest createRequest = new CreateRequest()
-			{
-				Target = entity
-			};
+      foreach (string key in Attributes.Keys)
+      {
+        entity[key] = Attributes[key].UnwrapPSObject();
+      }
 
-			WriteVerbose("Adding request to ExecuteMiltiple");
-			_executeMultipleRequest.Requests.Add(createRequest);
-		}
+      CreateRequest createRequest = new CreateRequest
+      {
+        Target = entity
+      };
 
-	}
+      createRequest["SuppressDuplicateDetection"] = (bool)SuppressDuplicateDetection;
+
+      WriteVerbose("Adding request to ExecuteMiltiple");
+      _executeMultipleRequest.Requests.Add(createRequest);
+    }
+
+  }
 
 }
