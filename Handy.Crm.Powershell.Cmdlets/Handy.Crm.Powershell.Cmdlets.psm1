@@ -1186,5 +1186,23 @@ function Save-CRMFormattedImportJobResult {
 }
 
 
+function Get-CRMAuditDetail {
+    [CmdletBinding()]
+    Param(
+        [Parameter(Mandatory=$true)]
+        [Microsoft.Xrm.Client.CrmConnection]$Connection,
+
+        [Parameter(Mandatory=$true)]
+        [guid]$AuditId
+    )
+
+    $parameters = @{'AuditId' = $AuditId}
+
+    $response = Invoke-CRMOrganizationRequest -Connection $Connection -RequestName 'RetrieveAuditDetails' -Parameters $parameters
+
+    $response['AuditDetail']
+}
+
+
 Set-Alias -Name 'Activate-CRMWorkflow' -Value 'Enable-CRMWorkflow'
 Set-Alias -Name 'Deactivate-CRMWorkflow' -Value 'Disable-CRMWorkflow'
