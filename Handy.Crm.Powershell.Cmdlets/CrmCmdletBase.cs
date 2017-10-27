@@ -1,32 +1,29 @@
 ﻿using System;
 using System.Management.Automation;
-using Microsoft.Xrm.Client;
-using Microsoft.Xrm.Client.Services;
+using Microsoft.Xrm.Tooling.Connector;
+using Microsoft.Xrm.Sdk;
 
 namespace Handy.Crm.Powershell.Cmdlets
 {
 	public class CrmCmdletBase : PSCmdlet
 	{
-		protected OrganizationService organizationService { get; set; }
+		protected IOrganizationService organizationService { get; set; }
 
 		[Parameter(
 			Mandatory = true,
 			Position = 0)]
 		[ValidateNotNull]
-		public CrmConnection Connection { get; set; }
+		public CrmServiceClient Connection { get; set; }
 
 		protected override void BeginProcessing()
 		{
 			base.BeginProcessing();
 
-			WriteVerbose("Creating OrganizationService");
-			organizationService = new OrganizationService(Connection);
+            organizationService = Connection;
 		}
 
 		protected override void EndProcessing()
 		{
-			organizationService.Dispose();
-
 			base.EndProcessing();
 		}
 	}

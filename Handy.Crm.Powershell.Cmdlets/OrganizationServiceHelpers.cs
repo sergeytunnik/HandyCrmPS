@@ -1,16 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using Microsoft.Xrm.Client.Services;
 using Microsoft.Xrm.Sdk.Query;
 using Microsoft.Xrm.Sdk;
 
 namespace Handy.Crm.Powershell.Cmdlets
 {
-	static class OrganizationServiceHelpers
+    static class OrganizationServiceHelpers
 	{
-		public static List<Entity> RetrieveMultipleAll(this OrganizationService organizationService, FetchExpression query)
+		public static List<Entity> RetrieveMultipleAll(this IOrganizationService organizationService, FetchExpression query)
 		{
 			int fetchCount = 5000;
 			int pageNumber = 1;

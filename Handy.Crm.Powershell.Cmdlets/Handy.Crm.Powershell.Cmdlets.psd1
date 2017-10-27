@@ -43,7 +43,7 @@ DotNetFrameworkVersion = '4.5.2'
 RequiredModules = @()
 
 # Assemblies that must be loaded prior to importing this module
-RequiredAssemblies = 'Microsoft.Xrm.Sdk.dll', 'Microsoft.Xrm.Client.dll', 'Microsoft.Crm.Sdk.Proxy.dll'
+RequiredAssemblies = 'Microsoft.Xrm.Sdk.dll', 'Microsoft.Crm.Sdk.Proxy.dll', 'Microsoft.Xrm.Tooling.Connector.dll'
 
 # Script files (.ps1) that are run in the caller's environment prior to importing this module.
 # ScriptsToProcess = @()
@@ -74,7 +74,8 @@ AliasesToExport = '*'
 
 # List of all files packaged with this module
 FileList = @('Handy.Crm.Powershell.Cmdlets.dll', 'Handy.Crm.Powershell.Cmdlets.psm1',
-    'Microsoft.Xrm.Sdk.dll', 'Microsoft.Xrm.Client.dll', 'Microsoft.Crm.Sdk.Proxy.dll')
+    'Microsoft.Crm.Sdk.Proxy.dll', 'Microsoft.IdentityModel.Clients.ActiveDirectory.dll', 'Microsoft.IdentityModel.Clients.ActiveDirectory.WindowsForms.dll',
+	'Microsoft.Xrm.Sdk.Deployment.dll', 'Microsoft.Xrm.Sdk.dll', 'Microsoft.Xrm.Sdk.Workflow.dll', 'Microsoft.Xrm.Tooling.Connector.dll')
 
 # Private data to pass to the module specified in RootModule/ModuleToProcess. This may also contain a PSData hashtable with additional module metadata used by PowerShell.
 PrivateData = @{
@@ -82,7 +83,7 @@ PrivateData = @{
     PSData = @{
 
         # Tags applied to this module. These help with module discovery in online galleries.
-        Tags = @('PSModule', 'DynamicsCRM', 'DevOps')
+        Tags = @('PSModule', 'Dynamics', 'CRM', 'DevOps')
 
         # A URL to the license for this module.
         LicenseUri = 'https://raw.githubusercontent.com/sergeytunnik/HandyCrmPS/master/LICENSE'
