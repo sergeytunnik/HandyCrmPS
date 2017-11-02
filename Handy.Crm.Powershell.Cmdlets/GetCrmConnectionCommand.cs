@@ -1,6 +1,7 @@
 ﻿using System.Management.Automation;
-using Microsoft.Xrm.Tooling.Connector;
 using System;
+using Microsoft.Xrm.Sdk.Client;
+using System.ServiceModel.Description;
 
 namespace Handy.Crm.Powershell.Cmdlets
 {
@@ -10,7 +11,10 @@ namespace Handy.Crm.Powershell.Cmdlets
         [Parameter(
             Mandatory = true)]
         [ValidateNotNullOrEmpty]
-        public string ConnectionString { get; set; }
+        public Uri OrganizationService { get; set; }
+
+        [Parameter(Mandatory = true)]
+        public PSCredential Credential { get; set; }
 
         [Parameter(
             Mandatory = false)]
@@ -21,12 +25,16 @@ namespace Handy.Crm.Powershell.Cmdlets
         {
             base.BeginProcessing();
 
-            var crmServiceClient = new CrmServiceClient(ConnectionString);
+            var cc = new ClientCredentials();
+            cc.UserName.UserName = $"{Credential.GetNetworkCredential().Domain}\\{Credential.GetNetworkCredential().UserName}";
+            cc.UserName.Password = Credential.GetNetworkCredential().Password;
+
+            var organizationService = new OrganizationServiceProxy(OrganizationService, null, cc, null);
 
             if (MyInvocation.BoundParameters.ContainsKey("CallerId"))
-                crmServiceClient.CallerId = CallerId;
+                organizationService.CallerId = CallerId;
 
-            WriteObject(crmServiceClient);
+            WriteObject(organizationService);
         }
     }
 }

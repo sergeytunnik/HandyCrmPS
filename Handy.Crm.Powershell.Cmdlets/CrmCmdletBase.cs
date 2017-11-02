@@ -1,11 +1,9 @@
-﻿using System;
-using System.Management.Automation;
-using Microsoft.Xrm.Tooling.Connector;
+﻿using System.Management.Automation;
 using Microsoft.Xrm.Sdk;
 
 namespace Handy.Crm.Powershell.Cmdlets
 {
-	public class CrmCmdletBase : PSCmdlet
+    public class CrmCmdletBase : PSCmdlet
 	{
 		protected IOrganizationService organizationService { get; set; }
 
@@ -13,7 +11,7 @@ namespace Handy.Crm.Powershell.Cmdlets
 			Mandatory = true,
 			Position = 0)]
 		[ValidateNotNull]
-		public CrmServiceClient Connection { get; set; }
+		public IOrganizationService Connection { get; set; }
 
 		protected override void BeginProcessing()
 		{

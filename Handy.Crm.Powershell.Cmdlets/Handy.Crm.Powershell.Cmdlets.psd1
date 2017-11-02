@@ -43,7 +43,7 @@ DotNetFrameworkVersion = '4.5.2'
 RequiredModules = @()
 
 # Assemblies that must be loaded prior to importing this module
-RequiredAssemblies = 'Microsoft.Xrm.Sdk.dll', 'Microsoft.Crm.Sdk.Proxy.dll', 'Microsoft.Xrm.Tooling.Connector.dll'
+RequiredAssemblies = @('Microsoft.Xrm.Sdk.dll', 'Microsoft.Crm.Sdk.Proxy.dll', 'SolutionPackager.dll')
 
 # Script files (.ps1) that are run in the caller's environment prior to importing this module.
 # ScriptsToProcess = @()
@@ -75,7 +75,7 @@ AliasesToExport = '*'
 # List of all files packaged with this module
 FileList = @('Handy.Crm.Powershell.Cmdlets.dll', 'Handy.Crm.Powershell.Cmdlets.psm1',
     'Microsoft.Crm.Sdk.Proxy.dll', 'Microsoft.IdentityModel.Clients.ActiveDirectory.dll', 'Microsoft.IdentityModel.Clients.ActiveDirectory.WindowsForms.dll',
-	'Microsoft.Xrm.Sdk.Deployment.dll', 'Microsoft.Xrm.Sdk.dll', 'Microsoft.Xrm.Sdk.Workflow.dll', 'Microsoft.Xrm.Tooling.Connector.dll')
+    'Microsoft.Xrm.Sdk.Deployment.dll', 'Microsoft.Xrm.Sdk.dll', 'Microsoft.Xrm.Sdk.Workflow.dll', 'SolutionPackager.dll')
 
 # Private data to pass to the module specified in RootModule/ModuleToProcess. This may also contain a PSData hashtable with additional module metadata used by PowerShell.
 PrivateData = @{

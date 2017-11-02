@@ -1204,5 +1204,83 @@ function Get-CRMAuditDetail {
 }
 
 
+function Expand-CRMSolution {
+    [CmdletBinding()]
+    Param(
+        [Parameter(Mandatory = $true)]
+        [ValidateNotNullOrEmpty()]
+        [string]$ZipPath,
+
+        [Parameter(Mandatory = $false)]
+        [ValidateNotNullOrEmpty()]
+        [string]$Folder = '.',
+
+        [Parameter(Mandatory = $false)]
+        [Microsoft.Crm.Tools.SolutionPackager.SolutionPackageType]$PackageType = [Microsoft.Crm.Tools.SolutionPackager.SolutionPackageType]::Both,
+
+        [Parameter(Mandatory = $false)]
+        [string]$SingleComponent = [string]::Empty,
+
+        [Parameter(Mandatory = $false)]
+        [Microsoft.Crm.Tools.SolutionPackager.AllowDelete]$AllowDeletes = [Microsoft.Crm.Tools.SolutionPackager.AllowDelete]::No,
+
+        [Parameter(Mandatory = $false)]
+        [switch]$Localize
+    )
+
+    $packagerArguments = New-Object -TypeName 'Microsoft.Crm.Tools.SolutionPackager.PackagerArguments'
+    $packagerArguments.Action = [Microsoft.Crm.Tools.SolutionPackager.CommandAction]::Extract
+    $packagerArguments.PathToZipFile = $PSCmdlet.SessionState.Path.GetUnresolvedProviderPathFromPSPath($ZipPath)
+    $packagerArguments.PackageType = $PackageType
+    $packagerArguments.Folder = $PSCmdlet.SessionState.Path.GetUnresolvedProviderPathFromPSPath($Folder)
+    $packagerArguments.SingleComponent = $SingleComponent
+    $packagerArguments.AllowDeletes = $AllowDeletes
+    $packagerArguments.Localize = $Localize
+
+    $solutionPackager = New-Object -TypeName 'Microsoft.Crm.Tools.SolutionPackager.SolutionPackager' -ArgumentList $packagerArguments
+    Write-Verbose -Message "Extracting: $($packagerArguments.PathToZipFile) -> $($packagerArguments.Folder)"
+    $solutionPackager.Run()
+}
+
+
+function Compress-CRMSolution {
+    [CmdletBinding()]
+    Param(
+        [Parameter(Mandatory = $true)]
+        [ValidateNotNullOrEmpty()]
+        [string]$ZipPath,
+
+        [Parameter(Mandatory = $false)]
+        [ValidateNotNullOrEmpty()]
+        [string]$Folder = '.',
+
+        [Parameter(Mandatory = $false)]
+        [Microsoft.Crm.Tools.SolutionPackager.SolutionPackageType]$PackageType = [Microsoft.Crm.Tools.SolutionPackager.SolutionPackageType]::Both,
+
+        [Parameter(Mandatory = $false)]
+        [string]$SingleComponent = [string]::Empty,
+
+        [Parameter(Mandatory = $false)]
+        [Microsoft.Crm.Tools.SolutionPackager.AllowDelete]$AllowDeletes = [Microsoft.Crm.Tools.SolutionPackager.AllowDelete]::No,
+
+        [Parameter(Mandatory = $false)]
+        [switch]$Localize
+    )
+
+    $packagerArguments = New-Object -TypeName 'Microsoft.Crm.Tools.SolutionPackager.PackagerArguments'
+    $packagerArguments.Action = [Microsoft.Crm.Tools.SolutionPackager.CommandAction]::Pack
+    $packagerArguments.PathToZipFile = $PSCmdlet.SessionState.Path.GetUnresolvedProviderPathFromPSPath($ZipPath)
+    $packagerArguments.PackageType = $PackageType
+    $packagerArguments.Folder = $PSCmdlet.SessionState.Path.GetUnresolvedProviderPathFromPSPath($Folder)
+    $packagerArguments.SingleComponent = $SingleComponent
+    $packagerArguments.AllowDeletes = $AllowDeletes
+    $packagerArguments.Localize = $Localize
+    
+    $solutionPackager = New-Object -TypeName 'Microsoft.Crm.Tools.SolutionPackager.SolutionPackager' -ArgumentList $packagerArguments
+    Write-Verbose -Message "Packing: $($packagerArguments.Folder) -> $($packagerArguments.PathToZipFile)"
+    $solutionPackager.Run()
+}
+
+
 Set-Alias -Name 'Activate-CRMWorkflow' -Value 'Enable-CRMWorkflow'
 Set-Alias -Name 'Deactivate-CRMWorkflow' -Value 'Disable-CRMWorkflow'
