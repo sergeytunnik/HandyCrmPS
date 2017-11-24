@@ -50,7 +50,7 @@ function Get-CRMEntityMetadata {
     [OutputType([Microsoft.Xrm.Sdk.Metadata.EntityMetadata])]
     Param(
         [Parameter(Mandatory=$true)]
-        [Microsoft.Xrm.Client.CrmConnection]$Connection,
+        [Microsoft.Xrm.Sdk.IOrganizationService]$Connection,
 
         [Parameter(Mandatory=$false)]
         [ValidateNotNullOrEmpty()]
@@ -129,7 +129,7 @@ function Add-CRMPrivilegesRole {
     [CmdletBinding()]
     Param(
         [Parameter(Mandatory=$true)]
-        [Microsoft.Xrm.Client.CrmConnection]$Connection,
+        [Microsoft.Xrm.Sdk.IOrganizationService]$Connection,
 
         [Parameter(Mandatory=$true)]
         [ValidateNotNull()]
@@ -154,7 +154,7 @@ function Remove-CRMPrivilegeRole {
     [CmdletBinding()]
     Param(
         [Parameter(Mandatory=$true)]
-        [Microsoft.Xrm.Client.CrmConnection]$Connection,
+        [Microsoft.Xrm.Sdk.IOrganizationService]$Connection,
 
         [Parameter(Mandatory=$true)]
         [ValidateNotNull()]
@@ -180,7 +180,7 @@ function Get-CRMPrivilege {
     [OutputType([Microsoft.Xrm.Sdk.Entity])]
     Param(
         [Parameter(Mandatory=$true)]
-        [Microsoft.Xrm.Client.CrmConnection]$Connection,
+        [Microsoft.Xrm.Sdk.IOrganizationService]$Connection,
 
         [Parameter(Mandatory=$true,
             ParameterSetName='Id')]
@@ -232,7 +232,7 @@ function Get-CRMRole {
     [OutputType([Microsoft.Xrm.Sdk.Entity])]
     Param(
         [Parameter(Mandatory=$true)]
-        [Microsoft.Xrm.Client.CrmConnection]$Connection,
+        [Microsoft.Xrm.Sdk.IOrganizationService]$Connection,
 
         [Parameter(Mandatory=$true)]
         [ValidateNotNullOrEmpty()]
@@ -291,7 +291,7 @@ function Get-CRMSolution {
     [OutputType([Microsoft.Xrm.Sdk.Entity])]
     Param(
         [Parameter(Mandatory=$true)]
-        [Microsoft.Xrm.Client.CrmConnection]$Connection,
+        [Microsoft.Xrm.Sdk.IOrganizationService]$Connection,
 
         [Parameter(Mandatory=$true)]
         [ValidateNotNullOrEmpty()]
@@ -318,7 +318,7 @@ function Set-CRMSDKStepState {
     [CmdletBinding()]
     Param(
         [Parameter(Mandatory=$true)]
-        [Microsoft.Xrm.Client.CrmConnection]$Connection,
+        [Microsoft.Xrm.Sdk.IOrganizationService]$Connection,
 
         [Parameter(Mandatory=$true)]
         [ValidateNotNullOrEmpty()]
@@ -395,7 +395,7 @@ function Get-CRMBusinessUnit {
     [CmdletBinding()]
     Param(
         [Parameter(Mandatory=$true)]
-        [Microsoft.Xrm.Client.CrmConnection]$Connection,
+        [Microsoft.Xrm.Sdk.IOrganizationService]$Connection,
 
         [Parameter(Mandatory=$true)]
         [ValidateNotNullOrEmpty()]
@@ -424,7 +424,7 @@ function New-CRMBusinessUnit {
     [OutputType([System.Guid])]
     Param(
         [Parameter(Mandatory=$true)]
-        [Microsoft.Xrm.Client.CrmConnection]$Connection,
+        [Microsoft.Xrm.Sdk.IOrganizationService]$Connection,
 
         [Parameter(Mandatory=$true)]
         [ValidateNotNullOrEmpty()]
@@ -470,7 +470,7 @@ function New-CRMUser {
     [OutputType([System.Guid])]
     Param(
         [Parameter(Mandatory=$true)]
-        [Microsoft.Xrm.Client.CrmConnection]$Connection,
+        [Microsoft.Xrm.Sdk.IOrganizationService]$Connection,
 
         [Parameter(Mandatory=$true)]
         [ValidateNotNullOrEmpty()]
@@ -514,7 +514,7 @@ function Get-CRMDuplicateRule {
     [OutputType([Microsoft.Xrm.Sdk.Entity])]
     Param(
         [Parameter(Mandatory=$true)]
-        [Microsoft.Xrm.Client.CrmConnection]$Connection,
+        [Microsoft.Xrm.Sdk.IOrganizationService]$Connection,
 
         [Parameter(Mandatory=$true)]
         [ValidateNotNullOrEmpty()]
@@ -552,7 +552,7 @@ function New-CRMQueue {
     [OutputType([System.Guid])]
     Param(
         [Parameter(Mandatory=$true)]
-        [Microsoft.Xrm.Client.CrmConnection]$Connection,
+        [Microsoft.Xrm.Sdk.IOrganizationService]$Connection,
 
         [Parameter(Mandatory=$true)]
         [ValidateNotNullOrEmpty()]
@@ -595,7 +595,7 @@ function Set-CRMQueueForUser {
     [CmdletBinding()]
     Param(
         [Parameter(Mandatory=$true)]
-        [Microsoft.Xrm.Client.CrmConnection]$Connection,
+        [Microsoft.Xrm.Sdk.IOrganizationService]$Connection,
 
         [Parameter(Mandatory=$true)]
         [ValidateNotNullOrEmpty()]
@@ -620,7 +620,7 @@ function Add-CRMRoleForUser {
     [CmdletBinding()]
     Param(
         [Parameter(Mandatory=$true)]
-        [Microsoft.Xrm.Client.CrmConnection]$Connection,
+        [Microsoft.Xrm.Sdk.IOrganizationService]$Connection,
 
         [Parameter(Mandatory=$true)]
         [ValidateNotNull()]
@@ -659,7 +659,7 @@ function Remove-CRMRoleForUser {
     [CmdletBinding()]
     Param(
         [Parameter(Mandatory=$true)]
-        [Microsoft.Xrm.Client.CrmConnection]$Connection,
+        [Microsoft.Xrm.Sdk.IOrganizationService]$Connection,
 
         [Parameter(Mandatory=$true)]
         [ValidateNotNull()]
@@ -699,7 +699,7 @@ function Get-CRMTransactionCurrency {
     [OutputType([Microsoft.Xrm.Sdk.Entity])]
     Param(
         [Parameter(Mandatory=$true)]
-        [Microsoft.Xrm.Client.CrmConnection]$Connection,
+        [Microsoft.Xrm.Sdk.IOrganizationService]$Connection,
 
         [Parameter(Mandatory=$true)]
         [CurrencyCodeEnum]$CurrencyCode
@@ -727,7 +727,7 @@ function New-CRMTransactionCurrency {
     [OutputType([System.Guid])]
     Param(
         [Parameter(Mandatory=$true)]
-        [Microsoft.Xrm.Client.CrmConnection]$Connection,
+        [Microsoft.Xrm.Sdk.IOrganizationService]$Connection,
      
         [Parameter(Mandatory=$true)]
         [string]$CurrencyName,
@@ -771,7 +771,7 @@ function Set-CRMSDKStepMode {
     [CmdletBinding()]
     Param(
         [Parameter(Mandatory=$true)]
-        [Microsoft.Xrm.Client.CrmConnection]$Connection,
+        [Microsoft.Xrm.Sdk.IOrganizationService]$Connection,
 
         [Parameter(Mandatory=$true)]
         [guid]$Id,
@@ -822,7 +822,7 @@ function Enable-CRMWorkflow {
     [CmdletBinding()]
     Param(
         [Parameter(Mandatory=$true)]
-        [Microsoft.Xrm.Client.CrmConnection]$Connection,
+        [Microsoft.Xrm.Sdk.IOrganizationService]$Connection,
 
         [Parameter(Mandatory=$true,
             ParameterSetName='Name')]
@@ -939,7 +939,7 @@ function Disable-CRMWorkflow {
     [CmdletBinding()]
     Param(
         [Parameter(Mandatory=$true)]
-        [Microsoft.Xrm.Client.CrmConnection]$Connection,
+        [Microsoft.Xrm.Sdk.IOrganizationService]$Connection,
 
         [Parameter(Mandatory=$true)]
         [ValidateNotNullOrEmpty()]
@@ -978,7 +978,7 @@ function Get-CRMSiteMap {
     [OutputType([string])]
     Param(
         [Parameter(Mandatory=$true)]
-        [Microsoft.Xrm.Client.CrmConnection]$Connection
+        [Microsoft.Xrm.Sdk.IOrganizationService]$Connection
     )
     
     $fetchXml = @"
@@ -999,7 +999,7 @@ function Set-CRMSiteMap {
     [OutputType([void])]
     Param(
         [Parameter(Mandatory=$true)]
-        [Microsoft.Xrm.Client.CrmConnection]$Connection,
+        [Microsoft.Xrm.Sdk.IOrganizationService]$Connection,
         
         [Parameter(Mandatory=$true)]
         [ValidateNotNullOrEmpty()]
@@ -1043,7 +1043,7 @@ function Publish-CRMXml {
     [OutputType([void])]
     Param(
         [Parameter(Mandatory=$true)]
-        [Microsoft.Xrm.Client.CrmConnection]$Connection,
+        [Microsoft.Xrm.Sdk.IOrganizationService]$Connection,
         
         [Parameter(Mandatory=$true)]
         [ValidateNotNullOrEmpty()]
@@ -1066,7 +1066,7 @@ function Get-CRMVersion {
     [OutputType([System.Version])]
     Param(
         [Parameter(Mandatory=$true)]
-        [Microsoft.Xrm.Client.CrmConnection]$Connection
+        [Microsoft.Xrm.Sdk.IOrganizationService]$Connection
     )
     
     $response = Invoke-CRMOrganizationRequest -Connection $Connection -RequestName 'RetrieveVersion'
@@ -1082,7 +1082,7 @@ function Get-CRMRelationship {
     [OutputType([Microsoft.Xrm.Sdk.Metadata.RelationshipMetadataBase])]
     Param(
         [Parameter(Mandatory=$true)]
-        [Microsoft.Xrm.Client.CrmConnection]$Connection,
+        [Microsoft.Xrm.Sdk.IOrganizationService]$Connection,
 
         [Parameter(Mandatory=$true)]
         [ValidateNotNullOrEmpty()]
@@ -1108,7 +1108,7 @@ function Update-CRMRelationship {
     [CmdletBinding()]
     Param(
         [Parameter(Mandatory=$true)]
-        [Microsoft.Xrm.Client.CrmConnection]$Connection,
+        [Microsoft.Xrm.Sdk.IOrganizationService]$Connection,
 
         [Parameter(Mandatory=$true)]
         [Microsoft.Xrm.Sdk.Metadata.RelationshipMetadataBase]$Relationship,
@@ -1130,7 +1130,7 @@ function Wait-CRMAsyncJob {
     [CmdletBinding()]
     Param(
         [Parameter(Mandatory=$true)]
-        [Microsoft.Xrm.Client.CrmConnection]$Connection,
+        [Microsoft.Xrm.Sdk.IOrganizationService]$Connection,
 
         [Parameter(Mandatory=$true)]
         [guid]$AsyncJobId,
@@ -1169,7 +1169,7 @@ function Save-CRMFormattedImportJobResult {
     [CmdletBinding()]
     Param(
         [Parameter(Mandatory=$true)]
-        [Microsoft.Xrm.Client.CrmConnection]$Connection,
+        [Microsoft.Xrm.Sdk.IOrganizationService]$Connection,
 
         [Parameter(Mandatory=$true)]
         [guid]$ImportJobId,
@@ -1190,7 +1190,7 @@ function Get-CRMAuditDetail {
     [CmdletBinding()]
     Param(
         [Parameter(Mandatory=$true)]
-        [Microsoft.Xrm.Client.CrmConnection]$Connection,
+        [Microsoft.Xrm.Sdk.IOrganizationService]$Connection,
 
         [Parameter(Mandatory=$true)]
         [guid]$AuditId
@@ -1279,6 +1279,22 @@ function Compress-CRMSolution {
     $solutionPackager = New-Object -TypeName 'Microsoft.Crm.Tools.SolutionPackager.SolutionPackager' -ArgumentList $packagerArguments
     Write-Verbose -Message "Packing: $($packagerArguments.Folder) -> $($packagerArguments.PathToZipFile)"
     $solutionPackager.Run()
+}
+
+
+function Get-CRMCurrentOrganization {
+    [CmdletBinding()]
+    Param(
+        [Parameter(Mandatory = $true)]
+        [Microsoft.Xrm.Sdk.IOrganizationService]$Connection
+    )
+
+    $parameters = @{}
+    $parameters['AccessType'] = [Microsoft.Xrm.Sdk.Organization.EndpointAccessType]::Default
+    
+    $response = Invoke-CRMOrganizationRequest -Connection $Connection -RequestName 'RetrieveCurrentOrganization' -Parameters $parameters
+
+    $response['Detail']
 }
 
 

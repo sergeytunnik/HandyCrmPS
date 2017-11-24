@@ -2,7 +2,7 @@
 using System.Xml;
 using Microsoft.Xrm.Sdk.Query;
 
-namespace Handy.Crm.Powershell.Cmdlets
+namespace Handy.Crm.Powershell.Cmdlets.Helpers
 {
   static class FetchExpressionHelpers
   {

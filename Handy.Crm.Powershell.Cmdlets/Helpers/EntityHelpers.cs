@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Management.Automation;
 
-namespace Handy.Crm.Powershell.Cmdlets
+namespace Handy.Crm.Powershell.Cmdlets.Helpers
 {
     static class EntityHelpers
     {

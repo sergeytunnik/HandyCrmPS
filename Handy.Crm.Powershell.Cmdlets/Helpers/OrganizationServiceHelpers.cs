@@ -3,7 +3,7 @@ using System.Linq;
 using Microsoft.Xrm.Sdk.Query;
 using Microsoft.Xrm.Sdk;
 
-namespace Handy.Crm.Powershell.Cmdlets
+namespace Handy.Crm.Powershell.Cmdlets.Helpers
 {
     static class OrganizationServiceHelpers
 	{

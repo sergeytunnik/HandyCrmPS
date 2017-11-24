@@ -5,6 +5,7 @@ using System.Management.Automation;
 using System.Text;
 using Microsoft.Xrm.Sdk;
 using System.Collections;
+using Handy.Crm.Powershell.Cmdlets.Helpers;
 
 namespace Handy.Crm.Powershell.Cmdlets
 {

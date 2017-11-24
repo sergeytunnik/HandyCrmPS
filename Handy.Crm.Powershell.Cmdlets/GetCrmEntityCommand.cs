@@ -3,7 +3,7 @@ using System.Linq;
 using System.Management.Automation;
 using Microsoft.Xrm.Sdk;
 using Microsoft.Xrm.Sdk.Query;
-
+using Handy.Crm.Powershell.Cmdlets.Helpers;
 
 namespace Handy.Crm.Powershell.Cmdlets
 {

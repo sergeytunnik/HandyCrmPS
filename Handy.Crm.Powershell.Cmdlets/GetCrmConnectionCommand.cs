@@ -1,7 +1,7 @@
 ﻿using System.Management.Automation;
 using System;
 using Microsoft.Xrm.Sdk.Client;
-using System.ServiceModel.Description;
+using Handy.Crm.Powershell.Cmdlets.Helpers;
 
 namespace Handy.Crm.Powershell.Cmdlets
 {
@@ -25,11 +25,7 @@ namespace Handy.Crm.Powershell.Cmdlets
         {
             base.BeginProcessing();
 
-            var cc = new ClientCredentials();
-            cc.UserName.UserName = $"{Credential.GetNetworkCredential().Domain}\\{Credential.GetNetworkCredential().UserName}";
-            cc.UserName.Password = Credential.GetNetworkCredential().Password;
-
-            var organizationService = new OrganizationServiceProxy(OrganizationService, null, cc, null);
+            var organizationService = new OrganizationServiceProxy(OrganizationService, null, Credential.ToClientCredentials(), null);
 
             if (MyInvocation.BoundParameters.ContainsKey("CallerId"))
                 organizationService.CallerId = CallerId;

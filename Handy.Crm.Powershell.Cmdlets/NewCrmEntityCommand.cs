@@ -6,6 +6,7 @@ using System.Management.Automation;
 using System.Text;
 using Microsoft.Xrm.Sdk;
 using Microsoft.Xrm.Sdk.Messages;
+using Handy.Crm.Powershell.Cmdlets.Helpers;
 
 namespace Handy.Crm.Powershell.Cmdlets
 {
