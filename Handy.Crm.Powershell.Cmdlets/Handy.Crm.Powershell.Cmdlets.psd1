@@ -4,7 +4,7 @@
 # RootModule = ''
 
 # Version number of this module.
-ModuleVersion = '0.4.0.0'
+ModuleVersion = '0.5.0.0'
 
 # ID used to uniquely identify this module
 GUID = '921009b6-0b33-49b8-a37a-d864da65160f'
@@ -16,7 +16,7 @@ Author = 'Sergey Tunnik'
 CompanyName = ''
 
 # Copyright statement for this module
-Copyright = '(c) 2016 Sergey Tunnik, licensed under MIT Licence.'
+Copyright = '(c) 2018 Sergey Tunnik, licensed under MIT Licence.'
 
 # Description of the functionality provided by this module
 Description = 'Set of basic cmdlets for PowerShell. It helps running common routine day-to-day tasks and as part of DevOps processes in Microsoft Dynamics CRM.'
@@ -74,8 +74,7 @@ AliasesToExport = '*'
 
 # List of all files packaged with this module
 FileList = @('Handy.Crm.Powershell.Cmdlets.dll', 'Handy.Crm.Powershell.Cmdlets.psm1',
-    'Microsoft.Crm.Sdk.Proxy.dll', 'Microsoft.IdentityModel.Clients.ActiveDirectory.dll', 'Microsoft.IdentityModel.Clients.ActiveDirectory.WindowsForms.dll',
-    'Microsoft.Xrm.Sdk.Deployment.dll', 'Microsoft.Xrm.Sdk.dll', 'Microsoft.Xrm.Sdk.Workflow.dll', 'SolutionPackager.dll')
+    'Microsoft.Crm.Sdk.Proxy.dll', 'Microsoft.Xrm.Sdk.Deployment.dll', 'Microsoft.Xrm.Sdk.dll', 'Microsoft.Xrm.Sdk.Workflow.dll', 'SolutionPackager.dll')
 
 # Private data to pass to the module specified in RootModule/ModuleToProcess. This may also contain a PSData hashtable with additional module metadata used by PowerShell.
 PrivateData = @{
@@ -83,7 +82,7 @@ PrivateData = @{
     PSData = @{
 
         # Tags applied to this module. These help with module discovery in online galleries.
-        Tags = @('PSModule', 'Dynamics', 'CRM', 'DevOps')
+        Tags = @('PSModule', 'Dynamics', 'CRM', 'DevOps', 'XRM')
 
         # A URL to the license for this module.
         LicenseUri = 'https://raw.githubusercontent.com/sergeytunnik/HandyCrmPS/master/LICENSE'

@@ -1,4 +1,8 @@
-﻿function Assert-CRMOrganizationResponse {
+﻿# Enabling TLS 1.2
+# More details: https://blogs.msdn.microsoft.com/crm/2017/09/28/updates-coming-to-dynamics-365-customer-engagement-connection-security/
+[Net.ServicePointManager]::SecurityProtocol = [Net.ServicePointManager]::SecurityProtocol -bor [System.Net.SecurityProtocolType]::Tls12
+
+function Assert-CRMOrganizationResponse {
     [CmdletBinding()]
     Param(
         [Parameter(Mandatory=$true,
