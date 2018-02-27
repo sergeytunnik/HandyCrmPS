@@ -1229,7 +1229,18 @@ function Expand-CRMSolution {
         [Microsoft.Crm.Tools.SolutionPackager.AllowDelete]$AllowDeletes = [Microsoft.Crm.Tools.SolutionPackager.AllowDelete]::No,
 
         [Parameter(Mandatory = $false)]
-        [switch]$Localize
+        [switch]$Localize,
+
+        [Parameter(Mandatory = $false)]
+        [ValidateNotNullOrEmpty()]
+        [string]$MappingFile = $null,
+
+        [Parameter(Mandatory = $false)]
+        [ValidateNotNullOrEmpty()]
+        [string]$LogFile = $null,
+
+        [Parameter(Mandatory = $false)]
+        [System.Diagnostics.TraceLevel]$ErrorLevel = [System.Diagnostics.TraceLevel]::Info
     )
 
     $packagerArguments = New-Object -TypeName 'Microsoft.Crm.Tools.SolutionPackager.PackagerArguments'
@@ -1240,6 +1251,13 @@ function Expand-CRMSolution {
     $packagerArguments.SingleComponent = $SingleComponent
     $packagerArguments.AllowDeletes = $AllowDeletes
     $packagerArguments.Localize = $Localize
+    if ($MappingFile) {
+        $packagerArguments.MappingFile = $PSCmdlet.SessionState.Path.GetUnresolvedProviderPathFromPSPath($MappingFile)
+    }
+    if($LogFile) {
+        $packagerArguments.LogFile = $PSCmdlet.SessionState.Path.GetUnresolvedProviderPathFromPSPath($LogFile)
+    }
+    $packagerArguments.ErrorLevel = $ErrorLevel
 
     $solutionPackager = New-Object -TypeName 'Microsoft.Crm.Tools.SolutionPackager.SolutionPackager' -ArgumentList $packagerArguments
     Write-Verbose -Message "Extracting: $($packagerArguments.PathToZipFile) -> $($packagerArguments.Folder)"
@@ -1268,7 +1286,18 @@ function Compress-CRMSolution {
         [Microsoft.Crm.Tools.SolutionPackager.AllowDelete]$AllowDeletes = [Microsoft.Crm.Tools.SolutionPackager.AllowDelete]::No,
 
         [Parameter(Mandatory = $false)]
-        [switch]$Localize
+        [ValidateNotNullOrEmpty()]
+        [switch]$Localize,
+
+        [Parameter(Mandatory = $false)]
+        [ValidateNotNullOrEmpty()]
+        [string]$MappingFile = $null,
+
+        [Parameter(Mandatory = $false)]
+        [string]$LogFile = $null,
+
+        [Parameter(Mandatory = $false)]
+        [System.Diagnostics.TraceLevel]$ErrorLevel = [System.Diagnostics.TraceLevel]::Info
     )
 
     $packagerArguments = New-Object -TypeName 'Microsoft.Crm.Tools.SolutionPackager.PackagerArguments'
@@ -1279,7 +1308,14 @@ function Compress-CRMSolution {
     $packagerArguments.SingleComponent = $SingleComponent
     $packagerArguments.AllowDeletes = $AllowDeletes
     $packagerArguments.Localize = $Localize
-    
+    if ($MappingFile) {
+        $packagerArguments.MappingFile = $PSCmdlet.SessionState.Path.GetUnresolvedProviderPathFromPSPath($MappingFile)
+    }
+    if($LogFile) {
+        $packagerArguments.LogFile = $PSCmdlet.SessionState.Path.GetUnresolvedProviderPathFromPSPath($LogFile)
+    }
+    $packagerArguments.ErrorLevel = $ErrorLevel
+
     $solutionPackager = New-Object -TypeName 'Microsoft.Crm.Tools.SolutionPackager.SolutionPackager' -ArgumentList $packagerArguments
     Write-Verbose -Message "Packing: $($packagerArguments.Folder) -> $($packagerArguments.PathToZipFile)"
     $solutionPackager.Run()
