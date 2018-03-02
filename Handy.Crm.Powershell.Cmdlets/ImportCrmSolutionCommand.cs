@@ -21,29 +21,27 @@ namespace Handy.Crm.Powershell.Cmdlets
             }
         }
 
-        [Parameter(
-            Mandatory = true),
-        ValidateNotNullOrEmpty]
+        [Parameter(Mandatory = true)]
+        [ValidateNotNullOrEmpty]
         public string Path { get; set; }
 
-        [Parameter(
-            Mandatory = false)]
+        [Parameter(Mandatory = false)]
         public SwitchParameter ConvertToManaged { get; set; }
 
-        [Parameter(
-            Mandatory = false)]
+        [Parameter(Mandatory = false)]
         public SwitchParameter OverwriteCustomizations { get; set; }
 
-        [Parameter(
-            Mandatory = false)]
+        [Parameter(Mandatory = false)]
         public SwitchParameter PublishWorkflows { get; set; }
 
-        [Parameter(
-            Mandatory = false)]
+        [Parameter(Mandatory = false)]
         public SwitchParameter SkipProductUpdateDependencies { get; set; }
 
-        [Parameter(
-            Mandatory = false)]
+        [Parameter(Mandatory = false)]
+        [Alias("Holding")]
+        public SwitchParameter HoldingSolution { get; set; }
+
+        [Parameter(Mandatory = false)]
         [Alias("Async")]
         public SwitchParameter Asynchronous { get; set; }
 
@@ -59,6 +57,7 @@ namespace Handy.Crm.Powershell.Cmdlets
             {
                 ConvertToManaged = ConvertToManaged,
                 CustomizationFile = fileBytes,
+                HoldingSolution = HoldingSolution,
                 ImportJobId = importJobId,
                 OverwriteUnmanagedCustomizations = OverwriteCustomizations,
                 PublishWorkflows = PublishWorkflows,

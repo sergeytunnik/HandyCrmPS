@@ -1338,5 +1338,113 @@ function Get-CRMCurrentOrganization {
 }
 
 
+function Invoke-CRMCloneAsPatch {
+    <#
+    .SYNOPSIS
+    Creates a solution patch from a managed or unmanaged solution
+
+    .LINK
+    https://msdn.microsoft.com/en-us/library/mt593040.aspx
+    Get-CRMConnection
+    #>
+    [CmdletBinding()]
+    [OutputType([guid])]
+    Param(
+        [Parameter(Mandatory = $true)]
+        [Microsoft.Xrm.Sdk.IOrganizationService]$Connection,
+
+        [Parameter(Mandatory = $true)]
+        [ValidateNotNullOrEmpty()]
+        [string]$ParentSolutionUniqueName,
+
+        [Parameter(Mandatory = $true)]
+        [ValidateNotNullOrEmpty()]
+        [string]$VersionNumber,
+
+        [Parameter(Mandatory = $true)]
+        [ValidateNotNullOrEmpty()]
+        [string]$DisplayName
+    )
+
+    $parameters = @{
+        'ParentSolutionUniqueName' = $ParentSolutionUniqueName;
+        'VersionNumber'            = $VersionNumber;
+        'DisplayName'              = $DisplayName;
+    }
+
+    $response = Invoke-CRMOrganizationRequest -Connection $Connection -RequestName 'CloneAsPatch' -Parameters $parameters
+
+    $response['SolutionId']
+}
+
+
+function Invoke-CRMCloneAsSolution {
+    <#
+    .SYNOPSIS
+    Creates a new copy of an unmanaged solution that contains the original solution plus all of its patches.
+
+    .LINK
+    https://msdn.microsoft.com/en-us/library/mt593040.aspx
+    Get-CRMConnection
+    #>
+    [CmdletBinding()]
+    [OutputType([guid])]
+    Param(
+        [Parameter(Mandatory = $true)]
+        [Microsoft.Xrm.Sdk.IOrganizationService]$Connection,
+
+        [Parameter(Mandatory = $true)]
+        [ValidateNotNullOrEmpty()]
+        [string]$ParentSolutionUniqueName,
+
+        [Parameter(Mandatory = $true)]
+        [ValidateNotNullOrEmpty()]
+        [string]$VersionNumber,
+
+        [Parameter(Mandatory = $true)]
+        [ValidateNotNullOrEmpty()]
+        [string]$DisplayName
+    )
+
+    $parameters = @{
+        'ParentSolutionUniqueName' = $ParentSolutionUniqueName;
+        'VersionNumber'            = $VersionNumber;
+        'DisplayName'              = $DisplayName;
+    }
+
+    $response = Invoke-CRMOrganizationRequest -Connection $Connection -RequestName 'CloneAsSolution' -Parameters $parameters
+
+    $response['SolutionId']
+}
+
+
+function Invoke-CRMDeleteAndPromote {
+    <#
+    .SYNOPSIS
+    Deletes the base solution along with all of its patches and renames the holding solution to the same name as the base solution.
+
+    .LINK
+    https://msdn.microsoft.com/en-us/library/mt593040.aspx
+    Get-CRMConnection
+    #>
+    [CmdletBinding()]
+    [OutputType([guid])]
+    Param(
+        [Parameter(Mandatory = $true)]
+        [Microsoft.Xrm.Sdk.IOrganizationService]$Connection,
+
+        [Parameter(Mandatory = $true)]
+        [ValidateNotNullOrEmpty()]
+        [string]$UniqueName
+    )
+
+    $parameters = @{ 'UniqueName' = $UniqueName; }
+
+    $response = Invoke-CRMOrganizationRequest -Connection $Connection -RequestName 'DeleteAndPromote' -Parameters $parameters
+
+    $response['SolutionId']
+}
+
+
 Set-Alias -Name 'Activate-CRMWorkflow' -Value 'Enable-CRMWorkflow'
 Set-Alias -Name 'Deactivate-CRMWorkflow' -Value 'Disable-CRMWorkflow'
