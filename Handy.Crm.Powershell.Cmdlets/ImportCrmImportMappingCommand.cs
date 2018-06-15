@@ -1,75 +1,72 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
 using System.Management.Automation;
 using Microsoft.Crm.Sdk.Messages;
 
 namespace Handy.Crm.Powershell.Cmdlets
 {
-	[Cmdlet(VerbsData.Import, "CRMImportMapping")]
-	public class ImportCrmImportMappingCommand : CrmCmdletBase
-	{
-		private string _path;
+    [Cmdlet(VerbsData.Import, "CRMImportMapping")]
+    public class ImportCrmImportMappingCommand : CrmCmdletBase
+    {
+        private string _path;
 
-		[Parameter(
-			Mandatory = true,
-			ParameterSetName = "File"),
-		ValidateNotNullOrEmpty]
-		public string Path
-		{
-			get
-			{
-				return _path;
-			}
+        [Parameter(
+            Mandatory = true,
+            ParameterSetName = "File"),
+        ValidateNotNullOrEmpty]
+        public string Path
+        {
+            get
+            {
+                return _path;
+            }
 
-			set
-			{
-				_path = System.IO.Path.IsPathRooted(value)
-					? value
-					: System.IO.Path.GetFullPath(SessionState.Path.CurrentLocation.Path + value);
-			}
-		}
+            set
+            {
+                _path = System.IO.Path.IsPathRooted(value)
+                    ? value
+                    : System.IO.Path.GetFullPath(SessionState.Path.CurrentLocation.Path + value);
+            }
+        }
 
-		[Parameter(
-			Mandatory = true,
-			ParameterSetName = "String"),
-		ValidateNotNullOrEmpty]
-		public string MappingsXml { get; set; }
+        [Parameter(
+            Mandatory = true,
+            ParameterSetName = "String"),
+        ValidateNotNullOrEmpty]
+        public string MappingsXml { get; set; }
 
-		[Parameter(
-			Mandatory = false)]
-		public SwitchParameter ReplaceIds { get; set; }
+        [Parameter(
+            Mandatory = false)]
+        public SwitchParameter ReplaceIds { get; set; }
 
-		protected override void ProcessRecord()
-		{
-			base.ProcessRecord();
+        protected override void ProcessRecord()
+        {
+            base.ProcessRecord();
 
-			WriteVerbose(string.Format("Parameter set name: {0}", ParameterSetName));
+            WriteVerbose(string.Format("Parameter set name: {0}", ParameterSetName));
 
-			string mappings = String.Empty;
+            string mappings = String.Empty;
 
-			switch (ParameterSetName)
-			{
-				case "File":
-					mappings = File.ReadAllText(Path);
-					break;
+            switch (ParameterSetName)
+            {
+                case "File":
+                    mappings = File.ReadAllText(Path);
+                    break;
 
-				case "String":
-					mappings = MappingsXml;
-					break;
-			}
+                case "String":
+                    mappings = MappingsXml;
+                    break;
+            }
 
-			ImportMappingsImportMapRequest request = new ImportMappingsImportMapRequest()
-			{
-				MappingsXml = mappings,
-				ReplaceIds = ReplaceIds
-			};
+            ImportMappingsImportMapRequest request = new ImportMappingsImportMapRequest()
+            {
+                MappingsXml = mappings,
+                ReplaceIds = ReplaceIds
+            };
 
-			ImportMappingsImportMapResponse response = (ImportMappingsImportMapResponse)organizationService.Execute(request);
+            ImportMappingsImportMapResponse response = (ImportMappingsImportMapResponse)Connection.Execute(request);
 
-			WriteObject(response);
-		}
-	}
+            WriteObject(response);
+        }
+    }
 }

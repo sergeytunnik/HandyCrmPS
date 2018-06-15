@@ -98,7 +98,7 @@ namespace Handy.Crm.Powershell.Cmdlets
             };
 
             WriteVerbose("Starting solution exporting");
-            ExportSolutionResponse exportSolutionResponse = (ExportSolutionResponse)organizationService.Execute(exportSolutionRequest);
+            ExportSolutionResponse exportSolutionResponse = (ExportSolutionResponse)Connection.Execute(exportSolutionRequest);
 
             WriteVerbose(string.Format("Saving solution ({0}) at {1}", SolutionName, AbsoluteFilePath));
             File.WriteAllBytes(AbsoluteFilePath, exportSolutionResponse.ExportSolutionFile);

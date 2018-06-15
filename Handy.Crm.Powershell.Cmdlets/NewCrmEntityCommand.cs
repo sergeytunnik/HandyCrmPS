@@ -1,53 +1,47 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Collections;
 using System.Management.Automation;
-using System.Text;
 using Microsoft.Xrm.Sdk;
 using Microsoft.Xrm.Sdk.Messages;
 using Handy.Crm.Powershell.Cmdlets.Helpers;
 
 namespace Handy.Crm.Powershell.Cmdlets
 {
-  [Cmdlet(VerbsCommon.New, "CRMEntity")]
-  public class NewCrmEntityCommand : CrmExecuteMultipleCmdletBase
-  {
-    [Parameter(
-      Mandatory = true)]
-    [ValidateNotNullOrEmpty]
-    public string EntityName { get; set; }
-
-    [Parameter(
-      Mandatory = true)]
-    [ValidateNotNull]
-    public Hashtable Attributes { get; set; }
-
-    [Parameter(Mandatory = false)]
-    public SwitchParameter SuppressDuplicateDetection { get; set; }
-
-    protected override void ProcessRecord()
+    [Cmdlet(VerbsCommon.New, "CRMEntity")]
+    public class NewCrmEntityCommand : CrmExecuteMultipleCmdletBase
     {
-      base.ProcessRecord();
+        [Parameter(
+          Mandatory = true)]
+        [ValidateNotNullOrEmpty]
+        public string EntityName { get; set; }
 
-      Entity entity = new Entity(EntityName);
+        [Parameter(
+          Mandatory = true)]
+        [ValidateNotNull]
+        public Hashtable Attributes { get; set; }
 
-      foreach (string key in Attributes.Keys)
-      {
-        entity[key] = Attributes[key].UnwrapPSObject();
-      }
+        [Parameter(Mandatory = false)]
+        public SwitchParameter SuppressDuplicateDetection { get; set; }
 
-      CreateRequest createRequest = new CreateRequest
-      {
-        Target = entity
-      };
+        protected override void ProcessRecord()
+        {
+            base.ProcessRecord();
 
-      createRequest["SuppressDuplicateDetection"] = (bool)SuppressDuplicateDetection;
+            Entity entity = new Entity(EntityName);
 
-      WriteVerbose("Adding request to ExecuteMiltiple");
-      _executeMultipleRequest.Requests.Add(createRequest);
+            foreach (string key in Attributes.Keys)
+            {
+                entity[key] = Attributes[key].UnwrapPSObject();
+            }
+
+            CreateRequest createRequest = new CreateRequest
+            {
+                Target = entity
+            };
+
+            createRequest["SuppressDuplicateDetection"] = (bool)SuppressDuplicateDetection;
+
+            WriteVerbose("Adding request to ExecuteMiltiple");
+            _executeMultipleRequest.Requests.Add(createRequest);
+        }
     }
-
-  }
-
 }

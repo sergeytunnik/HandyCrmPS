@@ -6,29 +6,29 @@ using Microsoft.Xrm.Sdk;
 namespace Handy.Crm.Powershell.Cmdlets.Helpers
 {
     static class OrganizationServiceHelpers
-	{
-		public static List<Entity> RetrieveMultipleAll(this IOrganizationService organizationService, FetchExpression query)
-		{
-			int fetchCount = 5000;
-			int pageNumber = 1;
-			string pagingCookie = null;
+    {
+        public static List<Entity> RetrieveMultipleAll(this IOrganizationService organizationService, FetchExpression query)
+        {
+            int fetchCount = 5000;
+            int pageNumber = 1;
+            string pagingCookie = null;
 
-			EntityCollection pageResult;
-			List<Entity> result = new List<Entity>();
+            EntityCollection pageResult;
+            List<Entity> result = new List<Entity>();
 
-			do
-			{
-				query.MakePaged(fetchCount, pageNumber, pagingCookie);
+            do
+            {
+                query.MakePaged(fetchCount, pageNumber, pagingCookie);
 
-				pageResult = organizationService.RetrieveMultiple(query);
-				result.AddRange(pageResult.Entities.ToList());
+                pageResult = organizationService.RetrieveMultiple(query);
+                result.AddRange(pageResult.Entities.ToList());
 
-				pageNumber++;
-				pagingCookie = pageResult.PagingCookie;
+                pageNumber++;
+                pagingCookie = pageResult.PagingCookie;
 
-			} while (pageResult.MoreRecords);
+            } while (pageResult.MoreRecords);
 
-			return result;
-		}
-	}
+            return result;
+        }
+    }
 }

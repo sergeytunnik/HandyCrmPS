@@ -68,7 +68,7 @@ namespace Handy.Crm.Powershell.Cmdlets
 
             if (Asynchronous)
             {
-                var response = (ExecuteAsyncResponse)organizationService.Execute(
+                var response = (ExecuteAsyncResponse)Connection.Execute(
                     new ExecuteAsyncRequest
                     {
                         Request = impSolutionRequest
@@ -78,7 +78,7 @@ namespace Handy.Crm.Powershell.Cmdlets
             }
             else
             {
-                organizationService.Execute(impSolutionRequest);
+                Connection.Execute(impSolutionRequest);
                 WriteVerbose("Finished importing solution");
             }
 

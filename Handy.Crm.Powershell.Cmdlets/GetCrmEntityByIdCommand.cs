@@ -5,41 +5,41 @@ using Microsoft.Xrm.Sdk.Query;
 
 namespace Handy.Crm.Powershell.Cmdlets
 {
-  [Cmdlet(VerbsCommon.Get, "CRMEntityById")]
-  [OutputType("Microsoft.Xrm.Sdk.Entity")]
-  public class GetCrmEntityByIdCommand : CrmCmdletBase
-  {
-    [Parameter(
-      Mandatory = true)]
-    [ValidateNotNullOrEmpty]
-    public string EntityName { get; set; }
-
-    [Parameter(
-      Mandatory = true,
-      ParameterSetName = "Columns")]
-    [ValidateNotNullOrEmpty]
-    public string[] Columns { get; set; }
-
-    [Parameter(
-      Mandatory = true,
-      ParameterSetName = "AllColumns")]
-    public SwitchParameter AllColumns { get; set; }
-
-    [Parameter(
-      Mandatory = true,
-      ValueFromPipeline = true)]
-    [ValidateNotNull]
-    public Guid Id { get; set; }
-
-    protected override void ProcessRecord()
+    [Cmdlet(VerbsCommon.Get, "CRMEntityById")]
+    [OutputType("Microsoft.Xrm.Sdk.Entity")]
+    public class GetCrmEntityByIdCommand : CrmCmdletBase
     {
-      base.ProcessRecord();
+        [Parameter(
+          Mandatory = true)]
+        [ValidateNotNullOrEmpty]
+        public string EntityName { get; set; }
 
-      ColumnSet columnSet = AllColumns.IsPresent ? new ColumnSet((bool)AllColumns) : new ColumnSet(Columns);
+        [Parameter(
+          Mandatory = true,
+          ParameterSetName = "Columns")]
+        [ValidateNotNullOrEmpty]
+        public string[] Columns { get; set; }
 
-      Entity entity = organizationService.Retrieve(EntityName, Id, columnSet);
+        [Parameter(
+          Mandatory = true,
+          ParameterSetName = "AllColumns")]
+        public SwitchParameter AllColumns { get; set; }
 
-      WriteObject(entity);
+        [Parameter(
+          Mandatory = true,
+          ValueFromPipeline = true)]
+        [ValidateNotNull]
+        public Guid Id { get; set; }
+
+        protected override void ProcessRecord()
+        {
+            base.ProcessRecord();
+
+            ColumnSet columnSet = AllColumns.IsPresent ? new ColumnSet(AllColumns) : new ColumnSet(Columns);
+
+            Entity entity = Connection.Retrieve(EntityName, Id, columnSet);
+
+            WriteObject(entity);
+        }
     }
-  }
 }
