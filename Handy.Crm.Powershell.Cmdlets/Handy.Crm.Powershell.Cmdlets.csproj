@@ -82,6 +82,7 @@
     <Compile Include="AddCrmAssociationCommand.cs" />
     <Compile Include="Connectivity\CrmService.cs" />
     <Compile Include="Connectivity\CrmServiceConfiguration.cs" />
+    <Compile Include="ExportCrmTranslationCommand.cs" />
     <Compile Include="GetCrmAttribute.cs" />
     <Compile Include="Helpers\EntityHelpers.cs" />
     <Compile Include="Helpers\FetchExpressionHelpers.cs" />
@@ -89,6 +90,7 @@
     <Compile Include="Helpers\PSCredentialHelpers.cs" />
     <Compile Include="Helpers\SecurityTokenResponseExtensions.cs" />
     <Compile Include="ImportCrmImportMappingCommand.cs" />
+    <Compile Include="ImportCrmTranslationCommand.cs" />
     <Compile Include="InvokeCrmOrganizationRequestCommand.cs" />
     <Compile Include="NewCrmEntityCommand.cs" />
     <Compile Include="CrmCmdletBase.cs" />

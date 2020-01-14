@@ -1,5 +1,4 @@
-﻿using System;
-using System.IO;
+﻿using System.IO;
 using System.Management.Automation;
 using Microsoft.Crm.Sdk.Messages;
 
@@ -8,63 +7,44 @@ namespace Handy.Crm.Powershell.Cmdlets
     [Cmdlet(VerbsData.Import, "CRMImportMapping")]
     public class ImportCrmImportMappingCommand : CrmCmdletBase
     {
-        private string _path;
+        [Parameter(Mandatory = true, ParameterSetName = "File")]
+        [ValidateNotNullOrEmpty]
+        public string Path { get; set; }
 
-        [Parameter(
-            Mandatory = true,
-            ParameterSetName = "File"),
-        ValidateNotNullOrEmpty]
-        public string Path
-        {
-            get
-            {
-                return _path;
-            }
-
-            set
-            {
-                _path = System.IO.Path.IsPathRooted(value)
-                    ? value
-                    : System.IO.Path.GetFullPath(SessionState.Path.CurrentLocation.Path + value);
-            }
-        }
-
-        [Parameter(
-            Mandatory = true,
-            ParameterSetName = "String"),
+        [Parameter(Mandatory = true, ParameterSetName = "String"),
         ValidateNotNullOrEmpty]
         public string MappingsXml { get; set; }
 
-        [Parameter(
-            Mandatory = false)]
+        [Parameter(Mandatory = false)]
         public SwitchParameter ReplaceIds { get; set; }
 
         protected override void ProcessRecord()
         {
-            base.ProcessRecord();
-
             WriteVerbose(string.Format("Parameter set name: {0}", ParameterSetName));
 
-            string mappings = String.Empty;
+            string mappings;
 
             switch (ParameterSetName)
             {
                 case "File":
-                    mappings = File.ReadAllText(Path);
+                    mappings = File.ReadAllText(GetAbsoluteFilePath(Path));
                     break;
 
                 case "String":
                     mappings = MappingsXml;
                     break;
+
+                default:
+                    throw new PSNotSupportedException($"Parameter set '{ParameterSetName}' is not supported.");
             }
 
-            ImportMappingsImportMapRequest request = new ImportMappingsImportMapRequest()
+            var request = new ImportMappingsImportMapRequest()
             {
                 MappingsXml = mappings,
                 ReplaceIds = ReplaceIds
             };
 
-            ImportMappingsImportMapResponse response = (ImportMappingsImportMapResponse)Connection.Execute(request);
+            var response = (ImportMappingsImportMapResponse)Connection.Execute(request);
 
             WriteObject(response);
         }

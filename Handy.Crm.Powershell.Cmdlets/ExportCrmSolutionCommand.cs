@@ -7,16 +7,6 @@ namespace Handy.Crm.Powershell.Cmdlets
     [Cmdlet(VerbsData.Export, "CRMSolution")]
     public class ExportCrmSolutionCommand : CrmCmdletBase
     {
-        private string AbsoluteFilePath
-        {
-            get
-            {
-                return System.IO.Path.IsPathRooted(FilePath)
-                    ? FilePath
-                    : System.IO.Path.GetFullPath(System.IO.Path.Combine(SessionState.Path.CurrentLocation.Path, FilePath));
-            }
-        }
-
         [Parameter(
             Mandatory = true)]
         [ValidateNotNullOrEmpty]
@@ -78,9 +68,7 @@ namespace Handy.Crm.Powershell.Cmdlets
 
         protected override void ProcessRecord()
         {
-            base.ProcessRecord();
-
-            ExportSolutionRequest exportSolutionRequest = new ExportSolutionRequest()
+            var exportSolutionRequest = new ExportSolutionRequest()
             {
                 Managed = Managed,
                 SolutionName = SolutionName,
@@ -98,10 +86,11 @@ namespace Handy.Crm.Powershell.Cmdlets
             };
 
             WriteVerbose("Starting solution exporting");
-            ExportSolutionResponse exportSolutionResponse = (ExportSolutionResponse)Connection.Execute(exportSolutionRequest);
+            var exportSolutionResponse = (ExportSolutionResponse)Connection.Execute(exportSolutionRequest);
 
-            WriteVerbose(string.Format("Saving solution ({0}) at {1}", SolutionName, AbsoluteFilePath));
-            File.WriteAllBytes(AbsoluteFilePath, exportSolutionResponse.ExportSolutionFile);
+            var absoluteFilePath = GetAbsoluteFilePath(FilePath);
+            WriteVerbose(string.Format("Saving solution ({0}) at {1}", SolutionName, absoluteFilePath));
+            File.WriteAllBytes(absoluteFilePath, exportSolutionResponse.ExportSolutionFile);
         }
     }
 }

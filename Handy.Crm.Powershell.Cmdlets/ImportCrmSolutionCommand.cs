@@ -11,16 +11,6 @@ namespace Handy.Crm.Powershell.Cmdlets
     [OutputType("System.Collections.Generic.Dictionary<string, Guid>")]
     public class ImportCrmSolutionCommand : CrmCmdletBase
     {
-        private string AbsolutePath
-        {
-            get
-            {
-                return System.IO.Path.IsPathRooted(Path)
-                    ? Path
-                    : System.IO.Path.GetFullPath(System.IO.Path.Combine(SessionState.Path.CurrentLocation.Path, Path));
-            }
-        }
-
         [Parameter(Mandatory = true)]
         [ValidateNotNullOrEmpty]
         public string Path { get; set; }
@@ -38,6 +28,9 @@ namespace Handy.Crm.Powershell.Cmdlets
         public SwitchParameter SkipProductUpdateDependencies { get; set; }
 
         [Parameter(Mandatory = false)]
+        public SwitchParameter SkipRibbonMetadataProcessing { get; set; }
+
+        [Parameter(Mandatory = false)]
         [Alias("Holding")]
         public SwitchParameter HoldingSolution { get; set; }
 
@@ -47,11 +40,10 @@ namespace Handy.Crm.Powershell.Cmdlets
 
         protected override void ProcessRecord()
         {
-            base.ProcessRecord();
-
-            byte[] fileBytes = File.ReadAllBytes(AbsolutePath);
-            Guid importJobId = Guid.NewGuid();
-            Guid asyncJobId = Guid.Empty;
+            var absoluteFilePath = GetAbsoluteFilePath(Path);
+            var fileBytes = File.ReadAllBytes(absoluteFilePath);
+            var importJobId = Guid.NewGuid();
+            var asyncJobId = Guid.Empty;
 
             ImportSolutionRequest impSolutionRequest = new ImportSolutionRequest()
             {
@@ -61,10 +53,11 @@ namespace Handy.Crm.Powershell.Cmdlets
                 ImportJobId = importJobId,
                 OverwriteUnmanagedCustomizations = OverwriteCustomizations,
                 PublishWorkflows = PublishWorkflows,
-                SkipProductUpdateDependencies = SkipProductUpdateDependencies
+                SkipProductUpdateDependencies = SkipProductUpdateDependencies,
+                SkipRibbonMetadataProcessing = SkipRibbonMetadataProcessing
             };
 
-            WriteVerbose(string.Format("Starting importing solution from {0}", AbsolutePath));
+            WriteVerbose(string.Format("Starting importing solution from {0}", absoluteFilePath));
 
             if (Asynchronous)
             {
