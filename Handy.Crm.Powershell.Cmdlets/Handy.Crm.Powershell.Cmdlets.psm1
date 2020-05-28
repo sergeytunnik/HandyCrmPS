@@ -1223,13 +1223,20 @@ function Expand-CRMSolution {
         [Microsoft.Crm.Tools.SolutionPackager.SolutionPackageType]$PackageType = [Microsoft.Crm.Tools.SolutionPackager.SolutionPackageType]::Both,
 
         [Parameter(Mandatory = $false)]
-        [string]$SingleComponent = [string]::Empty,
+        [ValidateSet('NONE', 'PLUGIN', 'WEBRESOURCE', 'WORKFLOW')]
+        [string]$SingleComponent = $null,
 
         [Parameter(Mandatory = $false)]
-        [Microsoft.Crm.Tools.SolutionPackager.AllowDelete]$AllowDeletes = [Microsoft.Crm.Tools.SolutionPackager.AllowDelete]::No,
+        [Microsoft.Crm.Tools.SolutionPackager.AllowDelete]$AllowDeletes = [Microsoft.Crm.Tools.SolutionPackager.AllowDelete]::Yes,
+
+        [Parameter(Mandatory = $false)]
+        [Microsoft.Crm.Tools.SolutionPackager.AllowWrite]$AllowWrites = [Microsoft.Crm.Tools.SolutionPackager.AllowWrite]::Yes,
 
         [Parameter(Mandatory = $false)]
         [switch]$Localize,
+
+        [Parameter(Mandatory = $false)]
+        [string]$LocaleTemplate = $null,
 
         [Parameter(Mandatory = $false)]
         [ValidateNotNullOrEmpty()]
@@ -1250,7 +1257,9 @@ function Expand-CRMSolution {
     $packagerArguments.Folder = $PSCmdlet.SessionState.Path.GetUnresolvedProviderPathFromPSPath($Folder)
     $packagerArguments.SingleComponent = $SingleComponent
     $packagerArguments.AllowDeletes = $AllowDeletes
+    $packagerArguments.AllowWrites = $AllowWrites
     $packagerArguments.Localize = $Localize
+    $packagerArguments.LocaleTemplate = $LocaleTemplate
     if ($MappingFile) {
         $packagerArguments.MappingFile = $PSCmdlet.SessionState.Path.GetUnresolvedProviderPathFromPSPath($MappingFile)
     }
@@ -1286,8 +1295,14 @@ function Compress-CRMSolution {
         [Microsoft.Crm.Tools.SolutionPackager.AllowDelete]$AllowDeletes = [Microsoft.Crm.Tools.SolutionPackager.AllowDelete]::No,
 
         [Parameter(Mandatory = $false)]
+        [Microsoft.Crm.Tools.SolutionPackager.AllowWrite]$AllowWrites = [Microsoft.Crm.Tools.SolutionPackager.AllowWrite]::Yes,
+
+        [Parameter(Mandatory = $false)]
         [ValidateNotNullOrEmpty()]
         [switch]$Localize,
+
+        [Parameter(Mandatory = $false)]
+        [string]$LocaleTemplate = $null,
 
         [Parameter(Mandatory = $false)]
         [ValidateNotNullOrEmpty()]
@@ -1307,7 +1322,9 @@ function Compress-CRMSolution {
     $packagerArguments.Folder = $PSCmdlet.SessionState.Path.GetUnresolvedProviderPathFromPSPath($Folder)
     $packagerArguments.SingleComponent = $SingleComponent
     $packagerArguments.AllowDeletes = $AllowDeletes
+    $packagerArguments.AllowWrites = $AllowWrites
     $packagerArguments.Localize = $Localize
+    $packagerArguments.LocaleTemplate = $LocaleTemplate
     if ($MappingFile) {
         $packagerArguments.MappingFile = $PSCmdlet.SessionState.Path.GetUnresolvedProviderPathFromPSPath($MappingFile)
     }
